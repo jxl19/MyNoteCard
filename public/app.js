@@ -47,6 +47,3 @@ function getAndDisplayNoteCard() {
 }
 
 getAndDisplayNoteCard();
-
-
-//need routers for: category, tag, title
