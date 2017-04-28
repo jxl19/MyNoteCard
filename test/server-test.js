@@ -51,6 +51,8 @@ describe('notecard API', function () {
         return closeServer();
     });
 
+    const expectedKeys = ['id', 'title', 'category', 'definition',
+        'tags'];
     describe('GET endpoint', function () {
         it('should return all notecards', function () {
             //gets back all notecards by GET
@@ -65,8 +67,6 @@ describe('notecard API', function () {
                     res.should.have.status(200);
                     //at least one makes sure our db seeding worked
                     res.body.length.should.be.at.least(1);
-                    const expectedKeys = ['id', 'title', 'category', 'definition',
-                        'tags'];
                     res.body.forEach(notecard => {
                         notecard.should.be.a('object');
                         notecard.should.include.keys(expectedKeys);
@@ -88,8 +88,6 @@ describe('notecard API', function () {
                     res.should.have.status(200);
                     res.should.be.json;
                     res.body.length.should.be.at.least(1);
-                    const expectedKeys = ['id', 'title', 'category', 'definition',
-                        'tags'];
                     res.body.forEach(notecard => {
                         notecard.should.be.a('object');
                         notecard.should.include.keys(expectedKeys);
@@ -106,5 +104,28 @@ describe('notecard API', function () {
                 });
         });
     });
-
+    describe('POST endpoint', function () {
+        it('should add a new notecard', function () {
+            const newNoteCard = generateNotecard();
+            return chai.request(app)
+                .post('/notecards')
+                .send(newNoteCard)
+                .then(res => {
+                    res.should.have.status(201);
+                    res.should.be.json;
+                    res.should.be.a('object');
+                    res.body.should.include.keys(expectedKeys);
+                    res.body.id.should.not.be.null;
+                    res.body.title.should.equal(newNoteCard.title);
+                    res.body.category.should.equal(newNoteCard.category);
+                    res.body.definition.should.equal(newNoteCard.definition);
+                    return NoteCard.findById(res.body.id);
+                })
+                .then(notecard => {
+                    notecard.title.should.equal(newNoteCard.title);
+                    notecard.category.should.equal(newNoteCard.category);
+                    notecard.definition.should.equal(newNoteCard.definition);
+                });
+        });
+    });
 });
