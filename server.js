@@ -7,13 +7,10 @@ mongoose.Promise = global.Promise;
 const {PORT, DATABASE_URL} = require('./config.js');
 const notecardRouter = require('./routers/notecardRouter');
 
-
 app.use(express.static('public'));
-app.use('/notecards', notecardRouter); 
-app.use('*', (req, res) => {
-  res.status(404).json({message: 'Request not found'});
-});
 
+app.use('/notecards', notecardRouter); 
+// app.get('/tests', dirname html testpage); 
 let server;
 
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {

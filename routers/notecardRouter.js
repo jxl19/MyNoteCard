@@ -21,7 +21,6 @@ router.get('/', (req, res) => {
         });
 });
 
-
 router.get('/:id', (req, res) => {
     NoteCard
         .findById(req.params.id)
@@ -34,7 +33,6 @@ router.get('/:id', (req, res) => {
             res.status(500).json({ message: 'Internal server error' });
         });
 });
-
 
 router.post('/', (req, res) => {
     //validate required fields
@@ -103,3 +101,7 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
+
+// heroku doesnt show db?
+// split schemas up?
+// 

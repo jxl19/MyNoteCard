@@ -10,10 +10,9 @@ const noteCardSchema = mongoose.Schema({
     tags: Array
 });
 
-
 noteCardSchema.methods.apiResponse = function() {
   return {
-    id: this.id,
+    id: this._id,
     title: this.title,
     category: this.category,
     definition: this.definition,

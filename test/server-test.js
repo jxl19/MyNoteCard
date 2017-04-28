@@ -155,31 +155,31 @@ describe('notecard API', function () {
                     res.body.definition.should.equal(updatedData.definition);
                     return NoteCard.findById(updatedData.id).exec();
                 })
-                .then(notecard =>{
+                .then(notecard => {
                     notecard.title.should.equal(updatedData.title);
                     notecard.category.should.equal(updatedData.category);
                     notecard.definition.should.equal(updatedData.definition);
                 });
         });
     });
-    describe('DELETE endpoint', function() {
-        it('should delete a blogpost',function() {
+    describe('DELETE endpoint', function () {
+        it('should delete a blogpost', function () {
             let deletedNoteCard;
             return NoteCard
-            .findOne()
-            .exec()
-            .then(delNoteCard => {
-                deletedNoteCard = delNoteCard;
-                return chai.request(app)
-                .delete(`/notecards/${deletedNoteCard.id}`);
-            })
-            .then(res =>{
-                res.should.have.status(204);
-                return NoteCard.findById(deletedNoteCard.id).exec();
-            })
-            .then(delNoteCard => {
-                should.not.exist(delNoteCard);
-            });
+                .findOne()
+                .exec()
+                .then(delNoteCard => {
+                    deletedNoteCard = delNoteCard;
+                    return chai.request(app)
+                        .delete(`/notecards/${deletedNoteCard.id}`);
+                })
+                .then(res => {
+                    res.should.have.status(204);
+                    return NoteCard.findById(deletedNoteCard.id).exec();
+                })
+                .then(delNoteCard => {
+                    should.not.exist(delNoteCard);
+                });
         });
     });
 });
