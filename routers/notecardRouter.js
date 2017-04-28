@@ -102,8 +102,4 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-// need to call mongoose.connect in server or queries will be queued up.
-// set up the other endpoints/routers -
-// in order to do that need to setup mongo db - need fake data?
-// rename this to notecard router???
 module.exports = router;
