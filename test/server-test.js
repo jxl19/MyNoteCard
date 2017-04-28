@@ -105,6 +105,7 @@ describe('notecard API', function () {
         });
     });
     describe('POST endpoint', function () {
+        //make post request with data and prove what we get back has correct keys 
         it('should add a new notecard', function () {
             const newNoteCard = generateNotecard();
             return chai.request(app)
@@ -128,4 +129,38 @@ describe('notecard API', function () {
                 });
         });
     });
+    describe('PUT endpoint', function () {
+        it('should update fields you send over', function () {
+            const updatedData = {
+                title: 'Cola',
+                category: 'Soda',
+                definition: 'Soda pop!'
+            };
+
+            return NoteCard
+                .findOne()
+                .exec()
+                .then(notecard => {
+                    updatedData.id = notecard.id;
+                    return chai.request(app)
+                        .put(`/notecards/${notecard.id}`)
+                        .send(updatedData);
+                })
+                .then(res => {
+                    res.should.have.status(200);
+                    res.should.be.json;
+                    res.should.be.a('object');
+                    res.body.title.should.equal(updatedData.title);
+                    res.body.category.should.equal(updatedData.category);
+                    res.body.definition.should.equal(updatedData.definition);
+                    return NoteCard.findById(updatedData.id).exec();
+                })
+                .then(notecard =>{
+                    notecard.title.should.equal(updatedData.title);
+                    notecard.category.should.equal(updatedData.category);
+                    notecard.definition.should.equal(updatedData.definition);
+                });
+        });
+    });
+
 });
