@@ -162,5 +162,24 @@ describe('notecard API', function () {
                 });
         });
     });
-
+    describe('DELETE endpoint', function() {
+        it('should delete a blogpost',function() {
+            let deletedNoteCard;
+            return NoteCard
+            .findOne()
+            .exec()
+            .then(delNoteCard => {
+                deletedNoteCard = delNoteCard;
+                return chai.request(app)
+                .delete(`/notecards/${deletedNoteCard.id}`);
+            })
+            .then(res =>{
+                res.should.have.status(204);
+                return NoteCard.findById(deletedNoteCard.id).exec();
+            })
+            .then(delNoteCard => {
+                should.not.exist(delNoteCard);
+            });
+        });
+    });
 });
