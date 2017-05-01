@@ -1,0 +1,67 @@
+
+ul.nav.nav-tabs{
+    border: 1px solid #ddd;
+}
+
+.js-search-form{
+    margin-top:8px;
+}
+div.side-nav{
+    padding-left:29px;
+    height:100%;
+}
+
+h3.notecard{
+    text-align: center;
+}
+
+h3.title{
+    border-bottom: 1px solid #ddd;
+}
+
+h4.content{
+    height:100px;
+    border-bottom: 1px solid #ddd;
+}
+
+div.note-front{
+    line-height:200px;
+    border-radius:4px;
+}
+
+div.term{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.form-control{
+    border-radius:0;
+}
+
+#note-def {
+    border-bottom:0px;
+}
+
+#note-category {
+    border-top:0px;
+    border-bottom:0px;
+}
+
+.noteheader{
+    width: 100%;
+    text-align:center;
+}
+
+.modal-header{
+    padding:0px;
+    border-bottom:none;
+}
+
+.modal-header .close{
+    margin-top:10px;
+    margin-right:10px;
+}
+
+.modal-lg {
+     width: 30%;
+}
