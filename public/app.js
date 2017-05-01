@@ -94,6 +94,7 @@ function addCardData() {
             type:'POST',
             url: BASE_URL + 'notecards',
             data: JSON.stringify(formInput),
+            dataType: "json",
             contentType: "application/json",
             success: function() {
                 location.reload();
