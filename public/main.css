@@ -65,3 +65,7 @@ div.term{
 .modal-lg {
      width: 30%;
 }
+
+.modal-footer{
+    text-align:center;
+}

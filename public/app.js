@@ -48,28 +48,55 @@
 
 // getAndDisplayNoteCard();
 
-$('.add-btn').on('click', function(e){
+const BASE_URL = "https://rocky-mesa-37949.herokuapp.com/";
+
+
+$('.add-btn').on('click', function (e) {
     console.log('button clicked');
     renderModalContent();
 })
 
-function renderModalContent(){
+function renderModalContent() {
     var content = $('.modal-body');
     content.empty();
-    addNewCard();
-    $('.carousel-control left').hide()
+    var newNote = '';
+    newNote = `<div class="form-group">
+        <label for="exampleTextarea" class = "noteheader">Add New Notecard</label>
+        <input class="form-control" type="text" placeholder="Title" id="title-input">
+        <input class="form-control" type="text" placeholder="Catetory" id="category-input">
+        <textarea class="form-control" id="definition-input" rows="3" placeholder = 
+        "Define term"></textarea>
+        <input class="form-control" type="text" placeholder="Tags" id="tag-input">
+        <div class = "modal-footer text-center"><button class = "submit">Submit</button></div>
+    </div>`;
+    $('.modal-body').html(newNote);
     $('#newnotecard').modal({ show: true });
 }
 
-function addNewCard() {
-    var newNote = '';
-    newNote =    `<div class="form-group">
-        <label for="exampleTextarea" class = "noteheader">Example notecard</label>
-        <input class="form-control" type="text" placeholder="Term" id="note-text">
-        <input class="form-control" type="text" placeholder="Catetory" id="note-category">
-        <textarea class="form-control" id="note-def" rows="3" placeholder = 
-        "Define term"></textarea>
-        <input class="form-control" type="text" placeholder="Tags" id="note-tags">
-    </div>`;
-    $('.modal-body').html(newNote);
+
+function addCardData() {
+    $('#new-notecard-form').on('submit', function(e){
+        e.preventDefault();
+        console.log('submit note clicked');
+        let formInput = {
+            title : $('#title-input').val(),
+            category: $('#category-input').val(),
+            definition: $('#definition-input').val()
+        }
+        //tags optional
+        if ($('#tag-input').val()) {
+            //split that val into array first
+            formInput.tags = $('#tag-input').val();
+        }
+
+        $.ajax({
+            type:'POST',
+            url: BASE_URL + 'notecards',
+            data: JSON.stringify(formInput),
+            contentType: "application/json",
+            success: function() {
+                location.reload();
+            }
+        })
+    });
 }
