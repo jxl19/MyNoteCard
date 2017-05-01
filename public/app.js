@@ -70,17 +70,17 @@ function renderModalContent() {
         <input class="form-control" type="text" placeholder="Tags" id="tag-input">
     </div>                   
      <div class="modal-footer text-center"><button class="submit" type="button">Submit</button></div>`
-    ;
+        ;
     $('.modal-body').html(newNote);
     $('#newnotecard').modal({ show: true });
 }
 
 
 function addCardData() {
-    $('.new-notecard-form').on('click', '.submit', function(e){
+    $('.new-notecard-form').on('click', '.submit', function (e) {
         console.log('submit note clicked');
         let formInput = {
-            title : $('#title-input').val(),
+            title: $('#title-input').val(),
             category: $('#category-input').val(),
             definition: $('#definition-input').val()
         }
@@ -91,12 +91,13 @@ function addCardData() {
         }
 
         $.ajax({
-            type:'POST',
+            type: 'POST',
             url: BASE_URL + 'notecards',
+            processData: false,
             data: JSON.stringify(formInput),
             dataType: "json",
             contentType: "application/json",
-            success: function() {
+            success: function () {
                 location.reload();
             }
         })
