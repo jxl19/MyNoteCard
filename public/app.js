@@ -50,6 +50,27 @@
 
 const BASE_URL = "https://rocky-mesa-37949.herokuapp.com/";
 
+function getNotecardData(callback) {
+  const query = {
+    url: BASE_URL + 'notecards',
+    success: callback
+  }
+  return $.getJSON(query);
+}
+
+function displayNoteCard(data) {
+    console.log(data);
+    let notecardhtml = '';
+    if(data.length){
+        data.forEach(notecard => {
+            notecardhtml += `                            
+            <div class="col-md-5"><div class="panel panel-default"><div class="note-front"><div class="term"> TERM1</div></div></div></div>`;
+        })
+    }
+    $('#profile-grid').append(notecardhtml);
+}
+
+
 
 $('.add-btn').on('click', function (e) {
     console.log('button clicked');
@@ -106,3 +127,4 @@ function addCardData() {
 }
 
 addCardData();
+getNotecardData(displayNoteCard);
