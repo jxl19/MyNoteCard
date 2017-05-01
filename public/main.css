@@ -38,11 +38,11 @@ div.term{
     border-radius:0;
 }
 
-#note-def {
+#definition-input {
     border-bottom:0px;
 }
 
-#note-category {
+#category-input {
     border-top:0px;
     border-bottom:0px;
 }
@@ -68,4 +68,5 @@ div.term{
 
 .modal-footer{
     text-align:center;
+    border-top:none;
 }

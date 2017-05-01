@@ -60,23 +60,24 @@ function renderModalContent() {
     var content = $('.modal-body');
     content.empty();
     var newNote = '';
-    newNote = `<div class="form-group">
+    newNote = `
+    <div class="form-group">
         <label for="exampleTextarea" class = "noteheader">Add New Notecard</label>
         <input class="form-control" type="text" placeholder="Title" id="title-input">
         <input class="form-control" type="text" placeholder="Catetory" id="category-input">
         <textarea class="form-control" id="definition-input" rows="3" placeholder = 
         "Define term"></textarea>
         <input class="form-control" type="text" placeholder="Tags" id="tag-input">
-        <div class = "modal-footer text-center"><button class = "submit">Submit</button></div>
-    </div>`;
+    </div>                   
+     <div class="modal-footer text-center"><button class="submit" type="button">Submit</button></div>`
+    ;
     $('.modal-body').html(newNote);
     $('#newnotecard').modal({ show: true });
 }
 
 
 function addCardData() {
-    $('#new-notecard-form').on('submit', function(e){
-        e.preventDefault();
+    $('.new-notecard-form').on('click', '.submit', function(e){
         console.log('submit note clicked');
         let formInput = {
             title : $('#title-input').val(),
@@ -85,7 +86,7 @@ function addCardData() {
         }
         //tags optional
         if ($('#tag-input').val()) {
-            //split that val into array first
+            //fix to take val and put in arr
             formInput.tags = $('#tag-input').val();
         }
 
@@ -100,3 +101,5 @@ function addCardData() {
         })
     });
 }
+
+addCardData();
