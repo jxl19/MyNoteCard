@@ -64,7 +64,7 @@ function displayNoteCard(data) {
     if(data.length){
         data.forEach(notecard => {
             notecardhtml += `                            
-            <div class="col-md-5"><div class="panel panel-default"><div class="note-front"><div class="term">${notecard.title}</div></div></div></div>`;
+            <div class="col-md-6"><div class="panel panel-default"><div class="note-front"><div class="term">${notecard.title}</div></div></div></div>`;
         })
     }
     $('#profile-grid').append(notecardhtml);
