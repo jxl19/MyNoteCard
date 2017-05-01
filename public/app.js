@@ -101,6 +101,7 @@ function addCardData() {
                 location.reload();
             }
         })
+        location.reload();
     });
 }
 
