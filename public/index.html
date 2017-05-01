@@ -1,10 +1,96 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <meta charset="utf-8">
+    <title>MyNote</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+
 <body>
-    <p>Hello World</p>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="app.js"></script>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid col-xs-offset-1">
+            <div class="navbar-header col-xs-12">
+                <a class="navbar-brand col-xs-6" href="#">MyNote</a>
+                <form class="js-search-form navbar-right col-xs-6 col-xs-pull-1">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control js-query" placeholder="Search for a term">
+                            <div class="input-group-addon">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="side-nav col-md-2 col-md-offset-1">
+        <ul class="nav nav-tabs nav-stacked">
+            <li role="presentation"><a href="#">Home</a></li>
+            <li role="presentation"><a href="#">Profile</a></li>
+            <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
+    </div>
+
+    <section class='notecards'>
+        <div class="row col-xs-9">
+            <div class="navbar col-md-12">
+                <div class="boxed">
+                    <div class="container-fluid">
+                        <div class="row panels" id="profile-grid">
+                            <!--js to insert info here, test notecard -->
+                            <div class="col-md-5">
+                                <div class="panel panel-default">
+                                    <div class="note-front">
+                                        <div class="term"> TERM1</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="panel panel-default">
+                                    <div class="note-front">
+                                        <div class="term"> TERM2</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="adder col-md-1">
+                                <button class="add-btn"> + </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    <!-- add new notecard modal-->
+    <div class="modal fade modal-profile" tabindex="-1" role="dialog" aria-labelledby="modalProfile" aria-hidden="true" id="newnotecard">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">×</button>
+                    <h3 class="modal-title"></h3>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 </body>
 
 </html>
+
+<!-- create notecard format?  add later-->
+<!--<div class="notecardd">
+    <h3 class="title"> name</h3>
+    <h4 class="content"> testing </h4>
+    <h4 class="tags"> tag1, tag2
+        <h4>
+</div>-->
