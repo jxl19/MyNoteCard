@@ -26,7 +26,6 @@ h4.content{
 
 div.note-front{
     line-height:200px;
-    border-radius:4px;
 }
 
 div.term{
@@ -114,23 +113,23 @@ div.notecard-definition{
     width:25px;
 }
 
-#f1_container {
+#front-container {
   position: relative;
   margin-bottom: 20px;
   width: 450px;
   height: 200px;
   z-index: 1;
 }
-#f1_container {
+#front-container {
   perspective: 1000;
 }
-#f1_card {
+#front-card {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
   transition: all 0.5s linear;
 }
-#f1_container:hover #f1_card {
+#front-container:hover #front-card {
   transform: rotateY(180deg);
 }
 .face {
@@ -146,4 +145,15 @@ div.notecard-definition{
   color: white;
   text-align: center;
   background-color: #aaa;
+}
+
+.text_editor {
+  border: none;
+  background: #ddd;
+  color: #000;
+  font-size: 14px;
+  font-family: arial;
+  width: 95%;
+  height:75px;
+  cursor: text;
 }

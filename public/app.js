@@ -61,15 +61,13 @@ function getNotecardData(callback) {
 }
 
 function displayNoteCard(data) {
-    console.log(data);
     let notecardhtml = '';
     if (data.length) {
         data.forEach(notecard => {
             notecardhtml += `                            
-            <div class="col-md-6" id="f1_container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="f1_card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back">
+            <div class="col-md-6" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}">
     <div class = "notecard-header">${notecard.category}</div>
-    <div class = "notecard-definition">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
-    <div class = "notecard-tag">${notecard.tags}</div>
+    <div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div>
   </div></div></div>
              `;
         })
@@ -82,9 +80,14 @@ $('.add-btn').on('click', function (e) {
     renderModalContent();
 })
 
-$('.del-btn').on('click', function(){   
+$('.del-btn').on('click', function () {
     $('#profile-grid').find("div.delete-notecard").removeClass("hidden");
 })
+
+// $('#profile-grid').on('click', '.note-back', function () {
+//     console.log($(this));
+//     // $(this).closest('.note-front').addClass("hidden");
+// })
 
 function renderModalContent() {
     var content = $('.modal-body');
@@ -115,7 +118,7 @@ function addCardData() {
             definition: $('#definition-input').val(),
             color: randomColor
         }
-            const tagArray = [];
+        const tagArray = [];
         //tags optional
         if ($('#tag-input').val()) {
             tagArray.push($('#tag-input').val());
@@ -138,8 +141,8 @@ function addCardData() {
 function deleteCardData() {
     $('#profile-grid').on('click', '.delete-notecard', function () {
         console.log('delete clicked');
-        let testid = $(this).attr('data-id');
-        let delete_url = BASE_URL + `notecards/${testid}`;
+        let data_id = $(this).attr('data-id');
+        let delete_url = BASE_URL + `notecards/${data_id}`;
         $.ajax({
             type: 'DELETE',
             url: delete_url,
@@ -150,7 +153,48 @@ function deleteCardData() {
     });
 };
 
+function updateCardData() {
+    $('#profile-grid').on("blur", ".text_editor", function () {
+        console.log($(this).attr('data-id'));
+        var data_id = $(this).attr('data-id');
+        var new_input = $(this).val();
+        var updated_text = $(`<span class='editable_text' data-id = '${data_id}'>`);
+        updated_text.text(new_input);
+        $(this).replaceWith(updated_text);
+        let update_url = BASE_URL + `notecards/${data_id}`;
+        console.log(update_url);
+        console.log(new_input);
+        let updateInput = {
+            id: data_id,
+            definition: new_input
+        }
+        $.ajax({
+            type: 'PUT',
+            url: update_url,
+            data: JSON.stringify(updateInput),
+            dataType: "json",
+            contentType: "application/json",
+            success: function() {
+                location.reload();
+            }
+        })
+    });
+};
+
+//edit on click
+$('#profile-grid').on("click", ".editable_text", function () {
+    var data_id = $(this).attr('data-id');
+    var original_text = $(this).text();
+    var new_input = $(`<input class='text_editor' data-id ='${data_id}'>`);
+    new_input.val(original_text);
+    $(this).replaceWith(new_input);
+    new_input.focus();
+});
+
+
+
 getNotecardData(displayNoteCard);
+updateCardData();
 deleteCardData();
 addCardData();
 
