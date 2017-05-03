@@ -34,6 +34,15 @@ div.term{
     vertical-align: middle;
 }
 
+div.notecard-header{
+    line-height:35px;
+}
+
+div.notecard-definition{
+    text-align: left;
+    padding-left:10px;
+}
+
 .form-control{
     border-radius:0;
 }
@@ -73,4 +82,68 @@ div.term{
 
 .adder{
     float:right;
+}
+
+.delete-notecard{
+    text-align:right;
+}
+
+.delete-notecard:hover{
+    text-decoration: underline;
+}
+
+.pink{
+    background-color: pink;
+}
+
+.blue{
+    background-color: blue;
+}
+.green{
+    background-color: green;
+}
+.yellow{
+    background-color: yellow;
+}
+
+.panel{
+    border:none;
+}
+
+.add-btn, .del-btn{
+    width:25px;
+}
+
+#f1_container {
+  position: relative;
+  margin-bottom: 20px;
+  width: 450px;
+  height: 200px;
+  z-index: 1;
+}
+#f1_container {
+  perspective: 1000;
+}
+#f1_card {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 0.5s linear;
+}
+#f1_container:hover #f1_card {
+  transform: rotateY(180deg);
+}
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.face.back {
+  display: block;
+  transform: rotateY(180deg);
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  background-color: #aaa;
 }
