@@ -36,12 +36,12 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     //validate required fields
-    const requiredFields = ['title', 'category', 'definition', 'tags'];
+    const requiredFields = ['title', 'category', 'definition'];
     requiredFields.forEach(field => {
         if (!(field in req.body)) {
             const message = `Missing \'${field}'\ in request body`;
             console.error(message);
-            return res.status(400).send(message);
+            res.status(400).send(message);
         }
     })
     NoteCard
@@ -49,6 +49,7 @@ router.post('/', (req, res) => {
             title: req.body.title,
             category: req.body.category,
             definition: req.body.definition,
+            color: req.body.color,
             tags: req.body.tags
         })
         .then(notecard => {
@@ -102,6 +103,3 @@ router.delete('/:id', (req, res) => {
 
 module.exports = router;
 
-// heroku doesnt show db?
-// split schemas up?
-// 
