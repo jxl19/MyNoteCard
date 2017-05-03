@@ -14,6 +14,7 @@ function generateNotecard() {
         title: faker.lorem.words(),
         category: faker.lorem.words(),
         definition: faker.lorem.sentences(),
+        color: faker.lorem.words(),
         tags: [faker.lorem.words(), faker.lorem.words()]
     }
 }
@@ -51,7 +52,7 @@ describe('notecard API', function () {
         return closeServer();
     });
 
-    const expectedKeys = ['id', 'title', 'category', 'definition',
+    const expectedKeys = ['id', 'title', 'category', 'definition', 'color',
         'tags'];
     describe('GET endpoint', function () {
         it('should return all notecards', function () {
