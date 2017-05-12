@@ -1,55 +1,22 @@
-// var mock_notecards = {
-//     "notecards": [
-//         {
-//             "title": "Middleware",
-//             "category": "Node",
-//             "definition": "The organizing principle of express apps. An express app is a stack of middleware functions that requests are sent through.",
-//             "tags": ["node", "javascript", "express"],
-//         },
-//         {
-//             "title": "Event Delegation",
-//             "category": "JavaScript",
-//             "definition": "Allows us to attach a single event listener to a parent element that will fire for all descendants matching the selector, whether or not it is currently there or added in the future.",
-//             "tags": ["JS", "jQuery"],
-//         },
-//         {
-//             "title": "Closure",
-//             "category": "JavaScript",
-//             "definition": "Closure is an inner function that has access to the outer function's variables. use it when you need private variables",
-//             "tags": ["JS", "functions", "global", "local"],
-//         },
-//         {
-//             "title": "Media Query",
-//             "category": "CSS",
-//             "definition": "Media Queries is a CSS3 module allowing content rendering to adapt to screen resolution.",
-//             "tags": ["css", "html", "resolution"]
-//         }
-//     ]
-// };
-
-// function getNoteCard(callbackFn){
-//     setTimeout(function() {
-//         callbackFn(mock_notecards)
-//     },1);
-// }
-
-// function displayNoteCard(data) {
-//     for (index in data.notecards){
-//         $("body").append(
-//             "<p>" + data.notecards[index].title + "</p>" + 
-//             "<p>" + data.notecards[index].definition + "</p>" 
-//         )
-//     }
-// }
-
-// function getAndDisplayNoteCard() {
-//     getNoteCard(displayNoteCard);
-// }
-
-// getAndDisplayNoteCard();
 // "http://localhost:8080/"
 // "https://rocky-mesa-37949.herokuapp.com/"
 
+// >>>given a list of definitions input correct answer <<<
+// var state = {
+//     correct: 0,
+//     incorrect: 0,
+//     questions: [
+//         {
+//             //this is added in when we start pushing things in state
+//             id: "59098d471afbaa2550f41bdd",
+//             //this is randomized between notecards made
+//             options: ["this one too", "test answer", "okay"],
+//             //this would be the current added cards name since it's all added one by one
+//             correctAnswer: "this one too" //notecard.title, 
+
+//         }
+//     ]
+// }
 const BASE_URL = "http://localhost:8080/";
 
 function getNotecardData(callback) {
@@ -58,6 +25,190 @@ function getNotecardData(callback) {
         success: callback
     }
     $.getJSON(query);
+}
+
+const state = {
+    question: []
+}
+
+function randomizeArr(arr) {
+
+    let counter = arr.length;
+
+    // While there are elements in the array
+    while (counter > 0) {
+        // Pick a random index
+        let index = Math.floor(Math.random() * counter);
+
+        // Decrease counter by 1
+        counter--;
+
+        // And swap the last element with it
+        let temp = arr[counter];
+        arr[counter] = arr[index];
+        arr[index] = temp;
+    }
+}
+
+//or make a new db for testing that holds questions and then make an array from it as we access the db
+
+function updateState(data) {
+    if (data.length) {
+
+        var tempobj = {},
+            title = "title",
+            category = "category",
+            questions = "questions",
+            definition = "definition";
+
+        data.forEach(notecard => {
+            let x = [notecard.title];
+
+                arr = [];
+                data.forEach(notecards => {
+                    arr.push(notecards.title);
+                });
+                //to not push the same categories each time
+                randomizeArr(arr);
+                for (var i in arr) {
+                    if (!x.includes(arr[i])) {
+                        if (x.length < 4) {
+                            x.push(arr[i]);
+                            //randomize output of question
+                            randomizeArr(x);
+                        }
+                    }
+                }
+
+            tempobj = {};
+            tempobj.title = notecard.title;
+            tempobj.category = notecard.category;
+            tempobj.questions = x;
+            tempobj.definition = notecard.definition;
+            state.question.push(tempobj);
+        });
+    }
+    const categoryArr = [];
+    $(".questions").empty();
+    data.forEach(notecard => {
+        categoryArr.push(notecard.category);
+    })
+
+    renderCategories(categoryArr);
+
+    $('.questions').on('click', '.category', function () {
+        $(".questions").empty();
+        $(".answers").empty();
+        const currentCategory = $(this).attr('id');
+        let currentQ = state.question;
+        let newState = {
+            currentQuestion: 0,
+            correctScore: 0,
+            question: []
+        }
+
+        let answerOptions = "";
+        for (var i in currentQ) {
+            if (currentCategory == currentQ[i].category) {
+                newObj = {};
+                newObj.title = currentQ[i].title;
+                newObj.questions = currentQ[i].questions;
+                newObj.definition = currentQ[i].definition;
+                newState.question.push(newObj);
+            }
+        }
+        renderQuestion(newState)
+        $(".answers").on("click", ".next-question", function (e) {
+            e.preventDefault();
+            let current = newState.question[newState.currentQuestion];
+            let answer = current.title;
+            let userAnswer;
+            let radios = $("form input:radio");
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    userAnswer = radios[i].value;
+                }
+            }
+            console.log(answer);
+            checkAnswer(answer, userAnswer, newState);
+        })
+        $(".answers").on("click", ".next_question", function () {
+            newState.currentQuestion ++;
+            renderNextQuestion(newState);
+        })
+    })
+}
+
+//user to store results of quiz in db, to store need user 
+//run a test for a user, and attach results to user and view results for user
+
+function renderNextQuestion(newState) {
+    if (newState.currentQuestion == newState.question.length) {
+        renderLastPage(newState);
+
+    }
+    else {
+        renderQuestion(newState);
+    }
+    console.log(newState.currentQuestion);
+    console.log(newState.question.length);
+}
+
+function checkAnswer(answer, userAnswer, newState) {
+    var message = "";
+    if (answer == userAnswer) {
+        newState.correctScore++;
+        message = `<h1> Correct! </h1>`;
+    }
+    else {
+        message = `<h2> Sorry, the answer is: <h2><h4>${answer}</h4>`
+    }
+    checkAnswerPage(message)
+}
+
+function checkAnswerPage(message) {
+    let answers = $(".answers");
+    answers.empty();
+    answers.append(message);
+    answers.append(`<button class = next_question>Next</button>`);
+}
+
+//need to make on click listener to show test with the categories
+//render correct or not page
+//render total score page
+//next question page
+
+function renderLastPage(newState) {
+    let answers = $(".answers");
+    answers.empty();
+    answers.append(`<h2> Your Results </h2> <h4 class = "results">${newState.correctScore} out of ${newState.currentQuestion} are correct`);
+}
+function renderQuestion(newState) {
+    $(".answers").empty();
+    let answerOptions = "";
+    let current = newState.question[newState.currentQuestion];
+    console.log(newState.question[newState.currentQuestion]);
+    if (current.questions.length) {
+        current.questions.map(answer => {
+            answerOptions += `<input class ="radio-button" type = "radio" name = "options" value = "${answer}" required>${answer}<br>`;
+        })
+        var answersHTML = `<h4 class = "answer-header">${newState.currentQuestion + 1} of ${newState.question.length}</h4><div class = "answers_list">${current.definition}</div><form class = "answers-form">${answerOptions}<button class = "next-question" type = "submit">Check Answer</button></form>`;
+        $(".answers").append(answersHTML);
+    }
+}
+
+function renderCategories(arr) {
+    var x = [];
+    for (var i in arr) {
+        if (!x.includes(arr[i])) {
+            x.push(arr[i]);
+        }
+        else {
+            return;
+        }
+        var categoryHTML = `<div class = "boxed col-md-5"><h3 class = category id = "${x[i]}">${x[i]}</h3></div>`;
+        $(".questions").append(categoryHTML);
+    }
 }
 
 function displayNoteCard(data) {
@@ -84,11 +235,6 @@ $('.del-btn').on('click', function () {
     $('#profile-grid').find("div.delete-notecard").removeClass("hidden");
 })
 
-// $('#profile-grid').on('click', '.note-back', function () {
-//     console.log($(this));
-//     // $(this).closest('.note-front').addClass("hidden");
-// })
-
 function renderModalContent() {
     var content = $('.modal-body');
     content.empty();
@@ -108,6 +254,10 @@ function renderModalContent() {
     $('#newnotecard').modal({ show: true });
 }
 
+
+//change schema to be like league? title holds title.. maybe need a new router,  test router
+//make user and store results in server.. results router?
+//saving results to db to allow removal of questions once answered correctly
 function addCardData() {
     const colors = ["pink", "green", "yellow", "blue"];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -138,6 +288,16 @@ function addCardData() {
     });
 };
 
+//edit on click, make function
+$('#profile-grid').on("click", ".editable_text", function () {
+    var data_id = $(this).attr('data-id');
+    var original_text = $(this).text();
+    var new_input = $(`<input class='text_editor' data-id ='${data_id}'>`);
+    new_input.val(original_text);
+    $(this).replaceWith(new_input);
+    new_input.focus();
+});
+
 function deleteCardData() {
     $('#profile-grid').on('click', '.delete-notecard', function () {
         console.log('delete clicked');
@@ -152,7 +312,13 @@ function deleteCardData() {
         });
     });
 };
+//material design cards - tags, category also in front
+//https://codepen.io/equinusocio/pen/VYWxXy
+//let user choose color
 
+//build the quiz
+// write out specific part of the test, write out details
+// -- plan it out, what will you do first, etc
 function updateCardData() {
     $('#profile-grid').on("blur", ".text_editor", function () {
         console.log($(this).attr('data-id'));
@@ -174,26 +340,23 @@ function updateCardData() {
             data: JSON.stringify(updateInput),
             dataType: "json",
             contentType: "application/json",
-            success: function() {
+            success: function () {
                 location.reload();
             }
         })
     });
 };
 
-//edit on click
-$('#profile-grid').on("click", ".editable_text", function () {
-    var data_id = $(this).attr('data-id');
-    var original_text = $(this).text();
-    var new_input = $(`<input class='text_editor' data-id ='${data_id}'>`);
-    new_input.val(original_text);
-    $(this).replaceWith(new_input);
-    new_input.focus();
-});
+
+
+$("li.test-page").on("click", function() {
+    window.location.href = 'test.html';
+})
 
 
 
 getNotecardData(displayNoteCard);
+getNotecardData(updateState);
 updateCardData();
 deleteCardData();
 addCardData();
@@ -203,6 +366,7 @@ addCardData();
 //testing part - deck of cards that user can modify, define/modify order
 //keep track of correct/incorrect, have results(last 10 times,etc)
 
+//
 
 //notecard by color - pink, green, blue, yellow - pastel colors
 //bulk creation, allow to make 10 at once(not priority)
