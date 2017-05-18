@@ -64,21 +64,21 @@ function updateState(data) {
         data.forEach(notecard => {
             let x = [notecard.title];
 
-                arr = [];
-                data.forEach(notecards => {
-                    arr.push(notecards.title);
-                });
-                //to not push the same categories each time
-                randomizeArr(arr);
-                for (var i in arr) {
-                    if (!x.includes(arr[i])) {
-                        if (x.length < 4) {
-                            x.push(arr[i]);
-                            //randomize output of question
-                            randomizeArr(x);
-                        }
+            arr = [];
+            data.forEach(notecards => {
+                arr.push(notecards.title);
+            });
+            //to not push the same categories each time
+            randomizeArr(arr);
+            for (var i in arr) {
+                if (!x.includes(arr[i])) {
+                    if (x.length < 4) {
+                        x.push(arr[i]);
+                        //randomize output of question
+                        randomizeArr(x);
                     }
                 }
+            }
 
             tempobj = {};
             tempobj.title = notecard.title;
@@ -133,7 +133,7 @@ function updateState(data) {
             checkAnswer(answer, userAnswer, newState);
         })
         $(".answers").on("click", ".next_question", function () {
-            newState.currentQuestion ++;
+            newState.currentQuestion++;
             renderNextQuestion(newState);
         })
     })
@@ -173,10 +173,6 @@ function checkAnswerPage(message) {
     answers.append(`<button class = next_question>Next</button>`);
 }
 
-//need to make on click listener to show test with the categories
-//render correct or not page
-//render total score page
-//next question page
 
 function renderLastPage(newState) {
     let answers = $(".answers");
@@ -211,12 +207,26 @@ function renderCategories(arr) {
     }
 }
 
+function renderNavCategories(arr) {
+    var x = [];
+    for (var i in arr) {
+        if (!x.includes(arr[i])) {
+            x.push(arr[i]);
+        }
+        else {
+            return;
+        }
+        let navhtml = `<li role="presentation" class = "nav-category" id = "${x[i]}"><a href="#">${x[i]}</a></li>`
+        $(".nav-stacked").append(navhtml);
+    }
+}
+
 function displayNoteCard(data) {
     let notecardhtml = '';
     if (data.length) {
         data.forEach(notecard => {
             notecardhtml += `                            
-            <div class="col-md-6" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}">
+            <div class="col-md-6" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}">
     <div class = "notecard-header">${notecard.category}</div>
     <div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div>
   </div></div></div>
@@ -224,6 +234,39 @@ function displayNoteCard(data) {
         })
     }
     $('#profile-grid').append(notecardhtml);
+}
+
+function displayCategoryNav(data) {
+    let navhtml = '';
+    let navArr = [];
+    if (data.length) {
+        data.forEach(notecard => {
+            navArr.push(notecard.category);
+        })
+    }
+    renderNavCategories(navArr);
+}
+
+function navCategorySearch(data) {
+    $(".nav-stacked").on("click", ".nav-category", function () {
+        console.log($(this).attr('id'));
+        let cat = $(this).attr('id');
+        let catHtml = '';
+        $('#profile-grid').empty();
+        if (data.length) {
+            data.forEach(notecard => {
+                if (cat == notecard.category) {
+                    catHtml += `                            
+            <div class="col-md-6" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}">
+    <div class = "notecard-header">${notecard.category}</div>
+    <div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div>
+  </div></div></div>
+             `;
+                }
+            })
+        }
+        $('#profile-grid').append(catHtml);
+    })
 }
 
 $('.add-btn').on('click', function (e) {
@@ -349,17 +392,19 @@ function updateCardData() {
 
 
 
-$("li.test-page").on("click", function() {
+$("li.test-page").on("click", function () {
     window.location.href = 'test.html';
 })
 
 
 
 getNotecardData(displayNoteCard);
+getNotecardData(displayCategoryNav);
 getNotecardData(updateState);
 updateCardData();
 deleteCardData();
 addCardData();
+getNotecardData(navCategorySearch);
 
 //document ready to execute above -- getnotecarddata, call again after info is posted instead of location reload
 //function to open close modal when data submitted and new data loaded in
