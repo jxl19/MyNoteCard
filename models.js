@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    validate: [validator.isEmail, 'Invalid Email Address'],
+    // validate: [{ validator: value => isEmail(value), msg: 'Invalid email.' }],
     required: 'Please supply an email address'
   },
   name: {
@@ -21,25 +21,21 @@ const userSchema = mongoose.Schema({
     trim: true,
     required: 'Please enter a name'
   },
-  score: {
-    type: [String]
-  }
+  notecards: [{type:mongoose.Schema.Types.ObjectId, ref: 'NoteCard'}]
 });
-// how to create relatinoship between two schemas
-//assosicaet user by specific user by id
+
 userSchema.plugin(passportLocalMongoose, {usernameField: 'email'});
 userSchema.plugin(mongodbErrorHandler);
 
 const User = mongoose.model('User', userSchema);
 
 const noteCardSchema = mongoose.Schema({
-    username: {type:String, required:true},
+    username: [{type:mongoose.Schema.Types.ObjectId, ref: 'User'}],
     title: {type: String, required: true},
     category: {type: String, required: true},
     definition: {type: String, required: true},
     color: {type: String, required:true},
     tags: [String]
-   
 });
 
 noteCardSchema.methods.apiResponse = function() {

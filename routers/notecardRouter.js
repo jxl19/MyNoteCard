@@ -11,8 +11,8 @@ router.use(bodyParser.json());
 let currentUser;
 
 router.get('/', (req, res) => {
-    if (req.session && req.session.username) {
-        currentUser = req.session.username;
+    if (req.session && req.user._id) {
+        currentUser = req.user._id;
     }
     NoteCard
         .find({ username: currentUser })
@@ -25,19 +25,6 @@ router.get('/', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 });
-
-// router.get('/:id', (req, res) => {
-//     NoteCard
-//         .findById(req.params.id)
-//         .exec()
-//         .then(notecard => {
-//             res.status(200).json(notecard.apiResponse());
-//         })
-//         .catch(err => {
-//             console.error(err);
-//             res.status(500).json({ message: 'Internal server error' });
-//         });
-// });
 
 router.post('/', (req, res) => {
     //validate required fields
@@ -57,9 +44,6 @@ router.post('/', (req, res) => {
             definition: req.body.definition,
             color: req.body.color,
             tags: req.body.tags
-        })
-        .then(notecard => {
-            res.status(201).json(notecard.apiResponse());
         })
         .catch(err => {
             console.error(err);

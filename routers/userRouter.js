@@ -17,9 +17,9 @@ router.post('/signup',
   authController.login
 );
 
-
-
 router.post('/login', authController.login);
+
+
 
 
 
