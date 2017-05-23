@@ -1,14 +1,9 @@
-
 ul.nav.nav-tabs{
     border: 1px solid #ddd;
 }
 
 .js-search-form{
     margin-top:8px;
-}
-div.side-nav{
-    padding-left:29px;
-    height:100%;
 }
 
 h3.notecard{
@@ -46,9 +41,6 @@ div.notecard-definition{
     border-radius:0;
 }
 
-#definition-input {
-    border-bottom:0px;
-}
 
 #category-input {
     border-top:0px;
@@ -79,9 +71,6 @@ div.notecard-definition{
     border-top:none;
 }
 
-.adder{
-    float:right;
-}
 
 .delete-notecard{
     text-align:right;
@@ -92,17 +81,17 @@ div.notecard-definition{
 }
 
 .pink{
-    background-color: pink;
+    background-color: #ffebef;
 }
 
 .blue{
-    background-color: blue;
+    background-color: #aec5e0;
 }
 .green{
-    background-color: green;
+    background-color: #b6edb6;
 }
 .yellow{
-    background-color: yellow;
+    background-color: #fefec8;
 }
 
 .panel{
@@ -116,7 +105,6 @@ div.notecard-definition{
 #front-container {
   position: relative;
   margin-bottom: 20px;
-  width: 450px;
   height: 200px;
   z-index: 1;
 }
@@ -142,9 +130,7 @@ div.notecard-definition{
   display: block;
   transform: rotateY(180deg);
   box-sizing: border-box;
-  color: white;
   text-align: center;
-  background-color: #aaa;
 }
 
 .text_editor {
@@ -159,8 +145,12 @@ div.notecard-definition{
 }
 
 .boxed{
-    border:1px solid black;
-    margin: 10px 10px 10px 10px;
+    /*margin: 10px 10px 10px 10px;*/
+    margin-top:10px;
+}
+
+.category{
+    border: 1px solid black;
 }
 
 .answers_list{
@@ -182,3 +172,45 @@ input[type=checkbox], input[type=radio]{
     margin-left: 10px;
     margin-right:10px;
 }
+
+#sign-out{
+    margin-top:8px;
+}
+
+div#front-container.col-xs-8{
+    
+}
+
+.log-in-container{
+    margin: 0 auto;
+    float:none;
+      min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.centerLogin{
+    border: 1px solid black;
+    border-radius:5px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color:white;
+}
+
+.signupForm{
+    margin-top: 10px;
+}
+
+.signupForm:hover{
+    text-decoration: underline;
+    color:royalblue;
+}
+
+.modal-content.sign-up{
+    height:450px;
+}
+/*#login-form{
+    width:250px;
+}*/

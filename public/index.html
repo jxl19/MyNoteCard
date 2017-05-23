@@ -3,49 +3,59 @@
 
 <head>
     <meta charset="utf-8">
+    <title>MyNote</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 
-<body>
+<body style="background-color:#aec5e0;">
+    <div class="col-md-12">
+        <div class="log-in-container col-md-6 text-center">
+            <div class="centerLogin">
+                <form id="login-form" method="POST" action="/users/login">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" class="form-control" id="login-email" placeholder="example@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" id="login-password" placeholder="password" required>
+                    </div>
+                    <div class="footer">
+                        <button type="submit" class="btn btn-custom">Log In</button>
+                    </div>
+                    <p class="signupForm"> Sign up for an account!
+                    </p>
+            </div>
+            </form>
 
-    <form id="login-form" method="POST" action="/users/login">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" name="email" class="form-control" id="login-email" required>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" class="form-control" id="login-password" required>
-        </div>
-        <div class="footer">
-            <button type="submit" class="btn btn-custom">Log In</button>
-        </div>
-    </form>
 
-    <h4 class="text-center">Sign Up</h4>
-    </div>
-    <form id="signup-form" method="POST" action="/users/signup">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" class="form-control" id="signup-name >
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" name="email" class="form-control" id="signup-email" >
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" class="form-control" id="signup-password" >
-        </div>
-        <div class="form-group">
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" name="confirm-password" class="form-control" id="confirm-password" >
-        </div>
-        <div class="footer">
-            <button type="submit" class="btn btn-custom">Sign Up</button>
-        </div>
-    </form>
     </div>
 
+
+    <!--signup modal-->
+    <div class="modal fade modal-profile" tabindex="-1" role="dialog" aria-labelledby="modalProfile" aria-hidden="true" id="signup">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content sign-up">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">×</button>
+                    <h3 class="modal-title"></h3>
+                </div>
+                <form class="signup-form">
+                    <div class="modal-body">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 
 </body>
 

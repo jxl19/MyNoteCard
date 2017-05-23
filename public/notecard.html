@@ -13,8 +13,8 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid col-xs-offset-1">
             <div class="navbar-header col-xs-12">
-                <a class="navbar-brand col-xs-6" href="#">MyNoteCard</a>
-                <form class="js-search-form navbar-right col-xs-6 col-xs-pull-1">
+                <a class="navbar-brand col-xs-3" href="#">MyNoteCard</a>
+                <form class="js-search-form col-xs-7 col-xs-pull-1">
                     <div class="form-group">
                         <div class="input-group">
                             <input type="text" class="form-control js-query" placeholder="Search for a term">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </form>
-                <form id="sign-out" action="/logout" method="GET">
+                <form class="col-xs-2" id="sign-out" action="/logout" method="GET">
                     <button type="submit" class="btn btn-custom"> Sign Out </button>
                 </form>
             </div>
@@ -32,29 +32,25 @@
     </nav>
 
     <!-- side navbar to search for categories-->
-    <div class="side-nav col-md-2 col-md-offset-1">
-        <ul class="nav nav-tabs">
-            <li class="test-page"><a>Test</a></li>
-        </ul>
-        <ul class="nav nav-tabs nav-stacked">
-        </ul>
-    </div>
+    <div class="CHANGETHIS col-xs-12">
+        <div class="side-nav col-md-2 col-xs-12">
+            <ul class="test-nav nav nav-tabs">
+                <li class="test-page"><a>Test</a></li>
+            </ul>
+            <ul class="nav nav-tabs nav-stacked">
+            </ul>
+        </div>
 
-    <section class='notecards'>
+        <section class='notecards col-md-8 col-xs-10'>
+            <div class="row panels navbar" id="profile-grid">
+                <!--js to insert info here, test notecard -->
+            </div>
+        </section>
         <div class="adder col-md-1">
             <button class="add-btn"> + </button>
             <button class="del-btn"> - </button>
         </div>
-        <div class="row col-xs-8">
-            <div class="navbar col-md-12">
-                <div class="box">
-                    <div class="container-fluid">
-                        <div class="row panels" id="profile-grid">
-                            <!--js to insert info here, test notecard -->
-                        </div>
-                    </div>
-                </div>
-    </section>
+    </div>
 
 
     <!-- add new notecard modal-->

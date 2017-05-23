@@ -52,7 +52,7 @@ function randomizeArr(arr) {
 
 //or make a new db for testing that holds questions and then make an array from it as we access the db
 
-function updateState(data) {
+function renderTest(data) {
     if (data.length) {
 
         var tempobj = {},
@@ -91,7 +91,7 @@ function updateState(data) {
     const categoryArr = [];
     $(".questions").empty();
     data.forEach(notecard => {
-        categoryArr.push(notecard.category);
+        categoryArr.push(notecard.category.toLowerCase());
     })
 
     renderCategories(categoryArr);
@@ -109,7 +109,7 @@ function updateState(data) {
 
         let answerOptions = "";
         for (var i in currentQ) {
-            if (currentCategory == currentQ[i].category) {
+            if (currentCategory == currentQ[i].category.toLowerCase()) {
                 newObj = {};
                 newObj.title = currentQ[i].title;
                 newObj.questions = currentQ[i].questions;
@@ -195,38 +195,37 @@ function renderQuestion(newState) {
 
 function renderCategories(arr) {
     var x = [];
-    for (var i in arr) {
+    for (var i = 0; i < arr.length; i++) {
         if (!x.includes(arr[i])) {
             x.push(arr[i]);
         }
         else {
             return;
         }
-        var categoryHTML = `<div class = "boxed col-md-5"><h3 class = category id = "${x[i]}">${x[i]}</h3></div>`;
+        var categoryHTML = `<div class = "boxed col-md-6"><h3 class = category id = "${x[i]}">${x[i]}</h3></div>`;
         $(".questions").append(categoryHTML);
     }
 }
 
 function renderNavCategories(arr) {
+    $(".nav-stacked").empty();
     var x = [];
-    for (var i in arr) {
+    for (var i = 0; i < arr.length; i++) {
         if (!x.includes(arr[i])) {
             x.push(arr[i]);
+            let navhtml = `<li role="presentation" class = "nav-category" id = "${arr[i]}"><a href="#">${arr[i]}</a></li>`
+            $(".nav-stacked").append(navhtml);
         }
-        else {
-            return;
-        }
-        let navhtml = `<li role="presentation" class = "nav-category" id = "${x[i]}"><a href="#">${x[i]}</a></li>`
-        $(".nav-stacked").append(navhtml);
     }
 }
 
 function displayNoteCard(data) {
+    $('#profile-grid').empty();
     let notecardhtml = '';
     if (data.length) {
         data.forEach(notecard => {
             notecardhtml += `                            
-            <div class="col-md-6" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}">
+            <div class="col-md-6 col-xs-12" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face ${notecard.color} note-back data-id = ${notecard.id}">
     <div class = "notecard-header">${notecard.category}</div>
     <div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div>
   </div></div></div>
@@ -241,9 +240,10 @@ function displayCategoryNav(data) {
     let navArr = [];
     if (data.length) {
         data.forEach(notecard => {
-            navArr.push(notecard.category);
+            navArr.push(notecard.category.toLowerCase());
         })
     }
+    console.log(navArr);
     renderNavCategories(navArr);
 }
 
@@ -255,7 +255,7 @@ function navCategorySearch(data) {
         $('#profile-grid').empty();
         if (data.length) {
             data.forEach(notecard => {
-                if (cat == notecard.category) {
+                if (cat == notecard.category.toLowerCase()) {
                     catHtml += `                            
             <div class="col-md-6" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}">
     <div class = "notecard-header">${notecard.category}</div>
@@ -278,6 +278,49 @@ $('.del-btn').on('click', function () {
     $('#profile-grid').find("div.delete-notecard").removeClass("hidden");
 })
 
+$('.notecards').on('click', '.delete-notecard', function () {
+    deleteCardData();
+})
+
+$('.signupForm').on('click', function () {
+    renderSignUpModal();
+});
+
+function renderSignUpModal() {
+    let content = $('.modal-body');
+    content.empty();
+    var signUp = '';
+    signUp = `
+        <div class="col-md-12">
+            <h4 class="text-center">Sign Up</h4>
+
+            <form id="signup-form" method="POST" action="/users/signup">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" class="form-control" id="signup-name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" class="form-control" id="signup-email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="signup-password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" name="confirm-password" class="form-control" id="confirm-password">
+                </div>
+                <div class="footer text-center">
+                    <button type="submit" class="btn btn-custom">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>`
+    $('.modal-body').html(signUp);
+    $('#signup').modal({ show: true });
+}
+
 function renderModalContent() {
     var content = $('.modal-body');
     content.empty();
@@ -289,7 +332,6 @@ function renderModalContent() {
         <input class="form-control" type="text" placeholder="Catetory" id="category-input">
         <textarea class="form-control" id="definition-input" rows="3" placeholder = 
         "Define term"></textarea>
-        <input class="form-control" type="text" placeholder="Tags" id="tag-input">
     </div>                   
      <div class="modal-footer text-center"><button class="submit" type="button">Submit</button></div>`
         ;
@@ -297,39 +339,37 @@ function renderModalContent() {
     $('#newnotecard').modal({ show: true });
 }
 
+$('.new-notecard-form').on('click', '.submit', function () {
+    addCardData();
+});
 
-//change schema to be like league? title holds title.. maybe need a new router,  test router
-//make user and store results in server.. results router?
-//saving results to db to allow removal of questions once answered correctly
+
 function addCardData() {
     const colors = ["pink", "green", "yellow", "blue"];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    $('.new-notecard-form').on('click', '.submit', function () {
-        let cardInput = {
-            title: $('#title-input').val(),
-            category: $('#category-input').val(),
-            definition: $('#definition-input').val(),
-            color: randomColor
-        }
-        const tagArray = [];
-        //tags optional
-        if ($('#tag-input').val()) {
-            tagArray.push($('#tag-input').val());
-            cardInput.tags = tagArray;
-        }
-        $.ajax({
-            type: 'POST',
-            url: BASE_URL + 'notecards',
-            processData: false,
-            data: JSON.stringify(cardInput),
-            dataType: "json",
-            contentType: "application/json",
-            success: function () {
-                location.reload();
-            }
-        });
-         location.reload();
+    let cardInput = {
+        title: $('#title-input').val(),
+        category: $('#category-input').val(),
+        definition: $('#definition-input').val(),
+        color: randomColor
+    }
+    const tagArray = [];
+    //tags optional
+    if ($('#tag-input').val()) {
+        tagArray.push($('#tag-input').val());
+        cardInput.tags = tagArray;
+    }
+    $.ajax({
+        type: 'POST',
+        url: BASE_URL + 'notecards',
+        processData: false,
+        data: JSON.stringify(cardInput),
+        dataType: "json",
+        contentType: "application/json",
     });
+    getNotecardData(displayNoteCard);
+    getNotecardData(displayCategoryNav);
+    $('#newnotecard').modal('hide');
 };
 
 //edit on click, make function
@@ -397,26 +437,24 @@ $("li.test-page").on("click", function () {
     window.location.href = 'test.html';
 })
 
+$(document).ready(function () {
+    getNotecardData(displayNoteCard);
+    getNotecardData(displayCategoryNav);
+});
 
 
-getNotecardData(displayNoteCard);
-getNotecardData(displayCategoryNav);
-getNotecardData(updateState);
-updateCardData();
-deleteCardData();
-addCardData();
 getNotecardData(navCategorySearch);
+getNotecardData(renderTest);
+updateCardData();
+
+
 
 //document ready to execute above -- getnotecarddata, call again after info is posted instead of location reload
 //function to open close modal when data submitted and new data loaded in
 //testing part - deck of cards that user can modify, define/modify order
 //keep track of correct/incorrect, have results(last 10 times,etc)
 
-//
-
 //notecard by color - pink, green, blue, yellow - pastel colors
-//bulk creation, allow to make 10 at once(not priority)
 
-//finish api, color, flipping animation - priority
 //category on navbar and search 
 //color for branding, APP NAME!!
