@@ -21,11 +21,14 @@ h4.content{
 
 div.note-front{
     line-height:200px;
+    border: 1px solid black;
+    border-top: none;
 }
 
 div.term{
     text-align: center;
     vertical-align: middle;
+    font-size: 18px;
 }
 
 div.notecard-header{
@@ -50,6 +53,10 @@ div.notecard-definition{
 .noteheader{
     width: 100%;
     text-align:center;
+}
+
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand{
+    margin-left:0px;
 }
 
 .modal-header{
@@ -102,9 +109,19 @@ div.notecard-definition{
     width:25px;
 }
 
+.panel-heading{
+    padding-bottom:35px;
+    padding-right:0px;
+    border-bottom:none;
+}
+.btn-group{
+    text-align: right;
+}
+
+/* card flip */ 
 #front-container {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 55px;
   height: 200px;
   z-index: 1;
 }
@@ -144,6 +161,8 @@ div.notecard-definition{
   cursor: text;
 }
 
+/* card flip end */ 
+
 .boxed{
     /*margin: 10px 10px 10px 10px;*/
     margin-top:10px;
@@ -175,10 +194,6 @@ input[type=checkbox], input[type=radio]{
 
 #sign-out{
     margin-top:8px;
-}
-
-div#front-container.col-xs-8{
-    
 }
 
 .log-in-container{

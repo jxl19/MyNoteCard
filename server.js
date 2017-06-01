@@ -17,6 +17,7 @@ const {PORT, DATABASE_URL} = require('./config.js');
 const {User} = require('./models')
 const userRouter = require('./routers/userRouter');
 const notecardRouter = require('./routers/notecardRouter');
+const testRouter = require('./routers/testRouter');
 const authController = require('./controllers/authController')
 mongoose.Promise = global.Promise;
 
@@ -48,9 +49,12 @@ function ensureAuthenticated(req, res, next) {
 }
 app.use('/users', userRouter);
 app.use('/notecards', notecardRouter); 
-app.get('/notecard', ensureAuthenticated, (req, res) => {
+app.use('/test', testRouter);
+app.use('/notecard', ensureAuthenticated, (req, res) => {
   res.status(200).sendFile(__dirname + '/public/notecard.html');
 });
+
+
 
 app.get('/logout?', authController.logout);
 

@@ -9,7 +9,7 @@ const { NoteCard } = require('../models');
 router.use(bodyParser.json());
 
 let currentUser;
-
+//when we get a request to /noetcards.
 router.get('/', (req, res) => {
     if (req.session && req.user._id) {
         currentUser = req.user._id;
@@ -26,8 +26,59 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/title/:definition', (req, res) => {
+    if (req.session && req.user._id) {
+        currentUser = req.user._id;
+    }
+    let resultsArray = [];
+    NoteCard
+    .find({ username: currentUser})
+    .exec()
+    .then(notecards => {
+        for (var i = 0; i < notecards.length; i++) {
+            var definition = notecards[i].definition.toLowerCase();
+            if(req.params.definition.toLowerCase() == definition) {
+                resultsArray.push(notecards[i]);
+            }
+        }
+        res.json(resultsArray);
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'Internal Server Error'});
+    })
+})
+//currently searches for terms using definiont
+router.get('/:title', (req, res) => {
+    console.log(req.params.title);
+    if (req.session && req.user._id) {
+        currentUser = req.user._id;
+    }
+    let resultsArray = [];
+    NoteCard
+        .find({ username: currentUser })
+        .exec()
+        .then(notecards => {
+            for (var i = 0; i < notecards.length; i++) {
+                var notecard = notecards[i];
+                console.log(notecards);
+                var definition = notecard.definition;
+                if (definition && definition.toLowerCase().includes(req.params.title.toLowerCase())) {
+                    resultsArray.push(notecard);
+                }
+            }
+            res.json(resultsArray);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        })
+});
+
+//connect api and make the result form the //cat call
 router.post('/', (req, res) => {
     //validate required fields
+    console.log(req.body);
     const requiredFields = ['title', 'category', 'definition'];
     requiredFields.forEach(field => {
         if (!(field in req.body)) {
@@ -92,4 +143,3 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
-

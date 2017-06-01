@@ -33,9 +33,8 @@ const noteCardSchema = mongoose.Schema({
     username: [{type:mongoose.Schema.Types.ObjectId, ref: 'User'}],
     title: {type: String, required: true},
     category: {type: String, required: true},
-    definition: {type: String, required: true},
+    definition: {type: String, required: true}, 
     color: {type: String, required:true},
-    tags: [String]
 });
 
 noteCardSchema.methods.apiResponse = function() {
@@ -46,7 +45,6 @@ noteCardSchema.methods.apiResponse = function() {
     category: this.category,
     definition: this.definition,
     color: this.color,
-    tags: this.tags
    }
 }
 
