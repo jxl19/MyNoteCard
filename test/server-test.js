@@ -4,7 +4,7 @@ const faker = require('faker');
 const mongoose = require('mongoose');
 const should = chai.should();
 const { app, runServer, closeServer } = require('../server');
-const { NoteCard } = require('../models');
+const { NoteCard, User } = require('../models');
 const { TEST_DATABASE_URL } = require('../config')
 chai.use(chaiHttp);
 
@@ -15,7 +15,7 @@ function generateNotecard() {
         category: faker.lorem.words(),
         definition: faker.lorem.sentences(),
         color: faker.lorem.words(),
-        tags: [faker.lorem.words(), faker.lorem.words()]
+        username: "591f58b7e75c3d3f78d3ccd7"
     }
 }
 
@@ -51,9 +51,8 @@ describe('notecard API', function () {
     after(function () {
         return closeServer();
     });
-
-    const expectedKeys = ['id', 'title', 'category', 'definition', 'color',
-        'tags'];
+    
+    const expectedKeys = ['id', 'title', 'category', 'definition', 'color', 'username'];
     describe('GET endpoint', function () {
         it('should return all notecards', function () {
             //gets back all notecards by GET

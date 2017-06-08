@@ -1,7 +1,26 @@
 ul.nav.nav-tabs{
-    border: 1px solid #ddd;
+    border: 1px solid rgb(211,211,211);
+      width: 140px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+  font-family: Raleway;
 }
 
+.CHANGETHIS{
+    padding-left:0;
+}
+
+.side-nav{
+    padding-left:0;
+}
+
+.nav-category:not(:first-child):not(:last-child){
+    border-bottom: 1px solid #ddd;
+}
+.nav-category:first-child{
+    border-bottom: 1px solid #ddd;
+}
 .js-search-form{
     margin-top:8px;
 }
@@ -21,14 +40,19 @@ h4.content{
 
 div.note-front{
     line-height:200px;
-    border: 1px solid black;
+    border: 1px solid 1px solid rgba(210, 205, 205, 0.47);
     border-top: none;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 div.term{
     text-align: center;
     vertical-align: middle;
     font-size: 18px;
+}
+
+.notecards{
+    font-family:raleway;
 }
 
 div.notecard-header{
@@ -42,9 +66,13 @@ div.notecard-definition{
 
 .form-control{
     border-radius:0;
+    font-family:raleway;
 }
 
-
+#sign-out{
+    font-family: raleway;
+    background-color:white;
+}
 #category-input {
     border-top:0px;
     border-bottom:0px;
@@ -55,8 +83,21 @@ div.notecard-definition{
     text-align:center;
 }
 
+.navbar-default{
+    background-color:white;
+    border:none;
+}
+
+.container-fluid{
+    padding-left:0;
+}
+
+.sidenavbar{
+    padding-left:0;
+}
 .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand{
     margin-left:0px;
+    font-family:Skranji;
 }
 
 .modal-header{
@@ -81,6 +122,7 @@ div.notecard-definition{
 
 .delete-notecard{
     text-align:right;
+    margin-right:10px;
 }
 
 .delete-notecard:hover{
@@ -103,6 +145,7 @@ div.notecard-definition{
 
 .panel{
     border:none;
+    border-radius: 0;
 }
 
 .add-btn, .del-btn{
@@ -113,6 +156,7 @@ div.notecard-definition{
     padding-bottom:35px;
     padding-right:0px;
     border-bottom:none;
+    box-shadow: 0 0px 7px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 .btn-group{
     text-align: right;
@@ -201,9 +245,9 @@ input[type=checkbox], input[type=radio]{
     float:none;
       min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
-
   display: flex;
   align-items: center;
+  font-family: raleway;
 }
 
 .centerLogin{

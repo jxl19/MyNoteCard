@@ -14,6 +14,9 @@ router.get('/', (req, res) => {
     if (req.session && req.user._id) {
         currentUser = req.user._id;
     }
+    else {
+        currentUser = 'testUser';
+    }
     NoteCard
         .find({ username: currentUser })
         .exec()

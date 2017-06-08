@@ -5,7 +5,6 @@ const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const passportLocalMongoose = require('passport-local-mongoose');
 const validator = require('validator');
 mongoose.Promise = global.Promise;
-//validator good package to validate emails - node lesson 23, 10min
 
 const userSchema = mongoose.Schema({
   email: {

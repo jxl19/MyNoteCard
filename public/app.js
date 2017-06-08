@@ -47,7 +47,7 @@ $('.questions').on('click', '.category', function () {
     const currentCategory = $(this).attr('id');
     $('.questions').empty();
     getTestData(currentCategory, renderTest);
-})
+});
 //function to render test 
 function renderTest(data) {
     let count = 0;
@@ -121,26 +121,6 @@ function displayTestQuestions(questions) {
 }
 
 
-
-// function displayTestQuestions(data) {
-//     $(".questions").empty();
-//     $(".answers").empty();
-//     let questionHTML;
-//     let answerOption;
-//     if (data.length) {
-//         data.forEach(answer => {
-//             answerOption += `<input class ="radio-button" type = "radio" name = "options" value = "${answer}" required>${answer}<br>`;
-//         })
-//         let answersHTML = `<div class = "answers_list">${current.definition}</div><form class = "answers-form">${answerOptions}<button class = "next-question" type = "submit">Check Answer</button></form>`;
-//         $(".answers").append(answersHTML);
-//     }
-//     //get questions on category
-//     //append in answers based on title
-//     // we can take in the response from the server and put it in an array andloop thru that
-//     //make a route for each 'notecard' and call the server each time we press next question
-// }
-
-
 getTestData('', displayTestCategories);
 
 function displaySearchResult(data) {
@@ -148,8 +128,9 @@ function displaySearchResult(data) {
     let searchHtml = '';
     if (data.length) {
         data.forEach(notecard => {
-            searchHtml = `<div class="col-md-6 col-xs-12" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face ${notecard.color} note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div>
-  </div></div></div>`
+            searchHtml = `                            
+            <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
+             `;
             $('#profile-grid').append(searchHtml);
         })
     }
@@ -161,7 +142,7 @@ function displayNoteCard(data) {
     if (data.length) {
         data.forEach(notecard => {
             notecardhtml += `                            
-            <div class="col-md-6 col-xs-12" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
+            <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
         })
     }
@@ -188,11 +169,8 @@ function navCategorySearch(data) {
         if (data.length) {
             data.forEach(notecard => {
                 if (cat == notecard.category.toLowerCase()) {
-                    catHtml += `                            
-            <div class="col-md-6" id="front-container"><div class = "delete-notecard hidden" data-id = "${notecard.id}">x</div><div id="front-card" class="panel panel-default shadow"><div class="note-front ${notecard.color} front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}">
-    <div class = "notecard-header">${notecard.category}</div>
-    <div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div>
-  </div></div></div>
+                    catHtml +=  `                            
+            <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
                 }
             })
