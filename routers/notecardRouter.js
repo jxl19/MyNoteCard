@@ -11,11 +11,11 @@ router.use(bodyParser.json());
 let currentUser;
 //when we get a request to /noetcards.
 router.get('/', (req, res) => {
-    if (req.session && req.user._id) {
+    if (req.session && req.user && req.user._id) {
         currentUser = req.user._id;
     }
     else {
-        currentUser = 'testUser';
+        currentUser = '591f58b7e75c3d3f78d3ccd7';
     }
     NoteCard
         .find({ username: currentUser })
@@ -35,25 +35,24 @@ router.get('/title/:definition', (req, res) => {
     }
     let resultsArray = [];
     NoteCard
-    .find({ username: currentUser})
-    .exec()
-    .then(notecards => {
-        for (var i = 0; i < notecards.length; i++) {
-            var definition = notecards[i].definition.toLowerCase();
-            if(req.params.definition.toLowerCase() == definition) {
-                resultsArray.push(notecards[i]);
+        .find({ username: currentUser })
+        .exec()
+        .then(notecards => {
+            for (var i = 0; i < notecards.length; i++) {
+                var definition = notecards[i].definition.toLowerCase();
+                if (req.params.definition.toLowerCase() == definition) {
+                    resultsArray.push(notecards[i]);
+                }
             }
-        }
-        res.json(resultsArray);
-    })
-    .catch(err => {
-        console.error(err);
-        res.status(500).json({error: 'Internal Server Error'});
-    })
+            res.json(resultsArray);
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        })
 })
-//currently searches for terms using definiont
+
 router.get('/:title', (req, res) => {
-    console.log(req.params.title);
     if (req.session && req.user._id) {
         currentUser = req.user._id;
     }
@@ -64,7 +63,6 @@ router.get('/:title', (req, res) => {
         .then(notecards => {
             for (var i = 0; i < notecards.length; i++) {
                 var notecard = notecards[i];
-                console.log(notecards);
                 var definition = notecard.definition;
                 if (definition && definition.toLowerCase().includes(req.params.title.toLowerCase())) {
                     resultsArray.push(notecard);
@@ -78,7 +76,7 @@ router.get('/:title', (req, res) => {
         })
 });
 
-//connect api and make the result form the //cat call
+
 router.post('/', (req, res) => {
     //validate required fields
     console.log(req.body);
@@ -97,7 +95,9 @@ router.post('/', (req, res) => {
             category: req.body.category,
             definition: req.body.definition,
             color: req.body.color,
-            tags: req.body.tags
+        })
+        .then(notecard => {
+            res.status(201).json(notecard.apiResponse());
         })
         .catch(err => {
             console.error(err);
@@ -114,7 +114,7 @@ router.put('/:id', (req, res) => {
         console.error(message);
         return res.status(400).send(message);
     }
-    const updateFields = ['title', 'category', 'definition', 'tags'];
+    const updateFields = ['title', 'category', 'definition'];
     const updateNotecard = {};
     updateFields.forEach(field => {
         if (field in req.body) {

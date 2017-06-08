@@ -51,7 +51,7 @@ describe('notecard API', function () {
     after(function () {
         return closeServer();
     });
-    
+
     const expectedKeys = ['id', 'title', 'category', 'definition', 'color', 'username'];
     describe('GET endpoint', function () {
         it('should return all notecards', function () {
