@@ -53,5 +53,3 @@ router.post('/login',
 );
 
 module.exports = router;
-
-//https://www.dropbox.com/sh/o6bdknh5v0cx05n/AABIl_My_DxueqE5mxKbUcRWa?dl=0
