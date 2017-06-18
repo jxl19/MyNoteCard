@@ -1,11 +1,12 @@
 const passport = require('passport');
+const mongoose = require('mongoose');
+const {User} = require('../models')
+const promisify = require('es6-promisify');
 
-exports.login = passport.authenticate('local', {
-   failureRedirect: '/',
-   failureFlash: 'Failed login',
-   successRedirect: '/notecard',
-   successFlash: 'You are now logged in'  
-});
+exports.login = passport.authenticate('local'), (req,res) => {
+    console.log('test');
+    res.redirect('/notecard');
+};
 
 exports.logout = (req,res) => {
     req.logout();
@@ -13,11 +14,11 @@ exports.logout = (req,res) => {
     res.redirect('/');
 }
 
-// exports.isLoggedIn = (req,res,next) => {
-//     if( req.isAuthenticated())  {
-//         next();
-//         return;
-//     }
-//     req.flash('error', 'You must be logged in to do that!');
-//     req.redirect('/');
-// }
+
+
+// exports.login = passport.authenticate('local', {
+//    failureRedirect: '/',
+//    failureFlash: 'Failed login',
+//    successRedirect: '/notecard',
+//    successFlash: 'You are now logged in'  
+// });

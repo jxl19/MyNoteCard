@@ -1,25 +1,15 @@
 // "http://localhost:8080/"
 // "https://rocky-mesa-37949.herokuapp.com/"
 
-const BASE_URL = "https://rocky-mesa-37949.herokuapp.com/";
+const BASE_URL = "http://localhost:8080/";
 
 function getCategoryData(userSearch, cb) {
     const query = {
         url: BASE_URL + 'notecards/' + userSearch,
         success: cb
     }
-    console.log(query);
     $.getJSON(query);
 }
-
-function getTestData(userSearch, cb) {
-    const query = {
-        url: BASE_URL + 'test/' + userSearch,
-        success: cb
-    }
-    $.getJSON(query);
-}
-
 //categories list for nav
 function renderNavCategories(arr) {
     $(".nav-stacked").empty();
@@ -32,96 +22,6 @@ function renderNavCategories(arr) {
         }
     }
 }
-//displays the categories to choose from in test
-function displayTestCategories(data) {
-    $('.questions').empty();
-    if (data.length) {
-        data.forEach(notecard => {
-            let catHTML = `<div class = "boxed col-md-6"><h3 class = category id = "${notecard}">${notecard}</h3></div>`
-            $(".questions").append(catHTML);
-        })
-    }
-}
-//when a category is chosen, renders the test
-$('.questions').on('click', '.category', function () {
-    const currentCategory = $(this).attr('id');
-    $('.questions').empty();
-    getTestData(currentCategory, renderTest);
-});
-//function to render test 
-function renderTest(data) {
-    let count = 0;
-    $('.category-header').empty();
-    let catArray = [];
-    if (data.length) {
-        data.forEach(category => {
-            catArray.push(category.title);
-        });
-        let currentCat = catArray[count];
-        let current = '/testing/' + currentCat.toLowerCase();
-        $('.category-header').append(currentCat);
-        getTestData(current, displayTestQuestions);
-        $('.answers').on('click', '.checkAnswer', function (e) {
-            e.preventDefault();
-            let userAnswer;
-            let radios = $("form input:radio");
-            for (var i = 0; i < radios.length; i++) {
-                if (radios[i].checked) {
-                    userAnswer = radios[i].value;
-                }
-            }
-            //check answer
-            getCategoryData('/testing/' + currentCat.toLowerCase(), checkAnswer);
-        });
-    }
-}
-
-//render next question
-// $('.questions').on('click', 'checkAnswer', function () {
-//     count++;
-//     $('.category-header').empty();
-//     $('.category-header').append(catArray[count]);
-//     getTestData('/testing/' + catArray[count].toLowerCase(), displayTestQuestions);
-// });
-
-function checkAnswer(data) {
-    var message = "";
-    if (data.length) {
-        if (userAnswer == data.definition) {
-            message = `<h1> Correct! </h1>`;
-        }
-    }
-    else {
-        message = `<h2> Sorry, the answer is: <h2><h4>${data.definition}</h4>`
-    }
-
-    checkAnswerPage(message)
-}
-
-function checkAnswerPage(message) {
-    let answers = $(".answers");
-    answers.empty();
-    answers.append(message);
-    answers.append(`<button class = next_question>Next</button>`);
-}
-
-function displayTestQuestions(questions) {
-    $('.answers').empty();
-    let answerOptions = '';
-    let count = 0;
-    if (questions.length) {
-        while (count <= 3) {
-            console.log(questions[0]);
-            answerOptions += `<input class ="radio-button" type = "radio" name = "options" value = "${questions[count]}" required>${questions[count]}<br>`;
-            count++;
-        }
-    }
-    let answersHTML = `<form class = "answers-form">${answerOptions}<button class = "checkAnswer" type = "submit">Check Answer</button></form>`
-    $('.answers').append(answersHTML);
-}
-
-
-getTestData('', displayTestCategories);
 
 function displaySearchResult(data) {
     $('#profile-grid').empty();
@@ -157,7 +57,6 @@ function displayCategoryNav(data) {
             navArr.push(notecard.category.toLowerCase());
         })
     }
-    console.log(navArr);
     renderNavCategories(navArr);
 }
 //search for the navbar onclick
@@ -169,7 +68,7 @@ function navCategorySearch(data) {
         if (data.length) {
             data.forEach(notecard => {
                 if (cat == notecard.category.toLowerCase()) {
-                    catHtml +=  `                            
+                    catHtml += `                            
             <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
                 }
@@ -199,7 +98,6 @@ $('.navbar-brand').click(function (e) {
 })
 
 $('.add-btn').on('click', function (e) {
-    console.log('button clicked');
     renderModalContent();
 })
 
@@ -207,13 +105,64 @@ $('.del-btn').on('click', function () {
     $('#profile-grid').find("div.delete-notecard").removeClass("hidden");
 })
 
-// $('.notecards').on('click', '.delete-notecard', function () {
-//     deleteCardData();
-// })
-
 $('.signupForm').on('click', function () {
     renderSignUpModal();
 });
+//signup to ajax
+//make login work
+
+$('.signup-form').on('click', '#user-signup', function (e) {
+    let route = 'users/signup';
+    addUser(route);
+    return false;
+});
+
+$('#login-button').on('click', function (e) {
+    e.preventDefault();
+    let route = 'users/login';
+    loginUser(route);
+});
+
+function loginUser(route) {
+    let user = {
+        email: $('#login-email').val(),
+        password: $('#login-password').val()
+    }
+    console.log(user);
+    $.ajax({
+        type: 'POST',
+        url: BASE_URL + route,
+        processData: false,
+        data: JSON.stringify(user),
+        contentType: "application/json",
+        success: (data, textStatus, jqXHR) => {
+            console.log(data);
+            console.log(textStatus);
+            window.location.replace('/notecard');
+        }
+    });
+}
+
+function addUser(route) {
+    let newUser = {
+        name: $('#signup-name').val(),
+        email: $('#signup-email').val(),
+        password: $('#signup-password').val()
+    }
+    console.log(newUser);
+    $.ajax({
+        type: 'POST',
+        url: BASE_URL + route,
+        processData: false,
+        data: JSON.stringify(newUser),
+        contentType: "application/json",
+        success: (data, textStatus, jqXHR) => {
+            console.log(data);
+            console.log(textStatus);
+            window.location.replace('/notecard');
+        }
+    });
+};
 
 function renderSignUpModal() {
     let content = $('.modal-body');
@@ -222,8 +171,8 @@ function renderSignUpModal() {
     signUp = `
         <div class="col-md-12">
             <h4 class="text-center">Sign Up</h4>
-
-            <form id="signup-form" method="POST" action="/users/signup">
+            
+            <form id="signup-form">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" class="form-control" id="signup-name">
@@ -241,7 +190,7 @@ function renderSignUpModal() {
                     <input type="password" name="confirm-password" class="form-control" id="confirm-password">
                 </div>
                 <div class="footer text-center">
-                    <button type="submit" class="btn btn-custom">Sign Up</button>
+                    <button type="submit" class="btn btn-custom" id="user-signup">Sign Up</button>
                 </div>
             </form>
         </div>
@@ -272,6 +221,22 @@ $('.new-notecard-form').on('click', '.submit', function () {
     addCardData();
 });
 
+$('#sign-out').on('click', function(e){
+    e.preventDefault();
+    console.log('clickededed');
+    logOut();
+})
+
+function logOut() {
+    $.ajax({
+        type: 'GET',
+        url: BASE_URL + 'logout',
+        success: function(data) {
+            window.location.replace('/');
+        }
+    })
+}
+
 function addCardData() {
     const colors = ["pink", "green", "yellow", "blue"];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -282,12 +247,7 @@ function addCardData() {
         definition: $('#definition-input').val(),
         color: randomColor
     }
-    const tagArray = [];
-    //tags optional
-    if ($('#tag-input').val()) {
-        tagArray.push($('#tag-input').val());
-        cardInput.tags = tagArray;
-    }
+
     $.ajax({
         type: 'POST',
         url: BASE_URL + 'notecards',
@@ -298,6 +258,7 @@ function addCardData() {
     });
     getCategoryData(searchTerm, displayNoteCard);
     getCategoryData(searchTerm, displayCategoryNav);
+    getCategoryData(searchTerm, navCategorySearch);
     $('#newnotecard').modal('hide');
 };
 
@@ -313,7 +274,6 @@ $('#profile-grid').on("click", ".editable_text", function () {
 
 // function deleteCardData() {
 $('#profile-grid').on('click', '.delete-notecard', function () {
-    console.log('delete clicked');
     let data_id = $(this).attr('data-id');
     let delete_url = BASE_URL + `notecards/${data_id}`;
     $.ajax({
@@ -328,15 +288,12 @@ $('#profile-grid').on('click', '.delete-notecard', function () {
 
 function updateCardData() {
     $('#profile-grid').on("blur", ".text_editor", function () {
-        console.log($(this).attr('data-id'));
         var data_id = $(this).attr('data-id');
         var new_input = $(this).val();
         var updated_text = $(`<span class='editable_text' data-id = '${data_id}'>`);
         updated_text.text(new_input);
         $(this).replaceWith(updated_text);
         let update_url = BASE_URL + `notecards/${data_id}`;
-        console.log(update_url);
-        console.log(new_input);
         let updateInput = {
             id: data_id,
             definition: new_input
@@ -354,7 +311,6 @@ function updateCardData() {
     });
 };
 
-
 //put this on a listner somewhere
 updateCardData();
 
@@ -362,10 +318,6 @@ $('.js-search-form').submit(function (e) {
     let searchTerm = $('.form-control.js-query').val().toLowerCase();
     e.preventDefault();
     getCategoryData(searchTerm, displaySearchResult);
-})
-
-$("li.test-page").on("click", function () {
-    window.location.href = 'test.html';
 })
 
 $(document).ready(function () {
@@ -377,4 +329,3 @@ $(document).ready(function () {
 
 //document ready to execute above -- getnotecarddata, call again after info is posted instead of location reload
 //function to open close modal when data submitted and new data loaded in
-//testing part - deck of cards that user can modify, define/modify order

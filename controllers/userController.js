@@ -1,38 +1,59 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+const { User } = require('../models')
 const promisify = require('es6-promisify');
+const passport = require('passport');
+const { BasicStrategy } = require('passport-http');
 
-//need test to check for email already used.
-exports.validateRegister = (req, res, next) => {
-    req.sanitizeBody('name');
-    req.checkBody('name', 'You must supply a name!').notEmpty();
-    req.checkBody('email', 'You must supply an email!').isEmail();
 
-    req.checkBody('password', 'Password cannot be blank!').notEmpty();
-    req.checkBody('confirm-password', 'Confirmed password cannot be blank!').notEmpty();
-    req.checkBody('confirm-password', 'Oops! Your passwords do not match').equals(req.body.password);
+exports.register = (req, res) => {
+    console.log("registering a user");
+    var promise = User
+        .find({ email: req.body.email })
+        .count()
+        .exec()
+        .then(count => {
+            if (count > 0) {
+                return Promise.reject({
+                    name: 'AuthenicationError',
+                    message: 'email already registered'
+                });
+            }
+            return User.hashPassword(req.body.password)
+        })
 
-    const errors = req.validationErrors();
-    if (errors) {
-        req.flash('error', errors.map(err => err.msg));
-        res.send('signup', { title: 'signup', body: req.body, flashes: req.flash() });
-        return;
-    }
-    next();
-};
+        .then(hash => {
+            return User
+                .create({
+                    email: req.body.email,
+                    name: req.body.name,
+                    password: hash
+                })
+        })
+        .then(user => {
+            //login after creating new user
+            console.log(user);
+            req.login(user, function (err) {
+                if (err) { return next(err); }
+                req.session.username = req.user.email;
+                return res.redirect('/notecard');
+            });
+        })
+        .catch(err => {
+            if (err.name === 'AuthenicationError') {
+                return res.status(422).json({ message: err.message })
+            }
+            res.status(500).json({ message: 'Internal Server Error' })
+        })
+    promise.then(function (user) {
+        console.log(user);
+        res.end(JSON.stringify(user));
+    }, function (err) {
+        res.status(500).json({ message: 'Internal Server Error' });
+    });
+}
 
-exports.register = async (req, res, next) => {
-    const user = new User({ email: req.body.email, name: req.body.name });
-    console.log(req.body.email);
-    console.log(req.body.name);
-    const register = promisify(User.register, User);
-    await register(user, req.body.password);
-    const errors = req.validationErrors();
-    console.log(errors);
-    if (errors) {
-        req.flash('error', errors.map(err => err.msg));
-        res.send('signup', { title: 'signup', body: req.body, flashes: req.flash() });
-        return;
-    }
-    next();
+exports.logout = (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
 }

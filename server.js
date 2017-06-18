@@ -12,13 +12,13 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 require('./handlers/passport');
 const app = express();
-
 const {PORT, DATABASE_URL} = require('./config.js');
 const {User} = require('./models')
 const userRouter = require('./routers/userRouter');
 const notecardRouter = require('./routers/notecardRouter');
-const testRouter = require('./routers/testRouter');
-const authController = require('./controllers/authController')
+// const testRouter = require('./routers/testRouter');
+const authController = require('./controllers/authController');
+const userController = require('./controllers/userController');
 mongoose.Promise = global.Promise;
 
 app.use(morgan('common'));
@@ -29,34 +29,38 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(session({
   secret: 'keyboard cat',
-  saveUninitialized: false,
-  resave: false,
-  store: new MongoStore({url: DATABASE_URL})
+  saveUninitialized: true,
+  resave: true,
+  store: new MongoStore({
+    url: DATABASE_URL,
+    collection: 'sessions'
+  })
 }));
-app.use(expressValidator());
-app.use(flash());
+
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   else {
+    console.log('no way jose');
     res.redirect('/');
   }
 }
 app.use('/users', userRouter);
 app.use('/notecards', notecardRouter); 
-app.use('/test', testRouter);
-app.use('/notecard', ensureAuthenticated, (req, res) => {
+// app.use('/test', testRouter);
+app.get('/notecard',ensureAuthenticated,(req, res) => {
   res.status(200).sendFile(__dirname + '/public/notecard.html');
 });
 
 
 
-app.get('/logout?', authController.logout);
+app.get('/logout', userController.logout);
 
 app.use('*', (req,res) => {
   res.status(404).json({message: 'Request not found'});
@@ -72,6 +76,7 @@ function runServer(databaseUrl=DATABASE_URL, port=PORT) {
       }
       server = app.listen(port, () => {
         console.log(`Server started on port: ${port}`);
+        console.log(databaseUrl);
         resolve();
       })
       .on('error', err => {

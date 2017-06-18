@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <div class="log-in-container col-md-6 text-center">
             <div class="centerLogin">
-                <form id="login-form" method="POST" action="/users/login">
+                <form id="login-form">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" name="email" class="form-control" id="login-email" placeholder="example@example.com" required>
@@ -24,7 +24,7 @@
                         <input type="password" name="password" class="form-control" id="login-password" placeholder="password" required>
                     </div>
                     <div class="footer">
-                        <button type="submit" class="btn btn-custom">Log In</button>
+                        <button type="submit" class="btn btn-custom" id = "login-button">Log In</button>
                     </div>
                     <p class="signupForm"> Sign up for an account!
                     </p>

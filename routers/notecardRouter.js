@@ -13,6 +13,7 @@ let currentUser;
 router.get('/', (req, res) => {
     if (req.session && req.user && req.user._id) {
         currentUser = req.user._id;
+
     }
     else {
         currentUser = '591f58b7e75c3d3f78d3ccd7';
@@ -79,7 +80,6 @@ router.get('/:title', (req, res) => {
 
 router.post('/', (req, res) => {
     //validate required fields
-    console.log(req.body);
     const requiredFields = ['title', 'category', 'definition'];
     requiredFields.forEach(field => {
         if (!(field in req.body)) {
