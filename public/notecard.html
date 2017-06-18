@@ -21,21 +21,27 @@
             </ul>-->
                     <ul class="nav nav-tabs nav-stacked">
                     </ul>
-                    
+
                 </div>
             </div>
-            <div class="navbar-header col-xs-8 col-xs-offset-2">
+            <div class="navbar-header col-xs-10 col-xs-offset-2">
                 <a class="navbar-brand col-md-2 col-xs-3" href="#">MyNoteCard</a>
-                <form class="js-search-form col-md-8 col-xs-7">
+                <form class="js-search-form col-md-7 col-xs-7">
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control js-query" placeholder="Search for a term">
+                            <input type="text" class="form-control js-query" placeholder="Search using words in definition">
                             <div class="input-group-addon">
                                 <i class="glyphicon glyphicon-search"></i>
                             </div>
                         </div>
                     </div>
                 </form>
+                <div class="adder col-md-1">
+                    <button class="add-btn"> 
+                        <span class = 'symbol'> + </span>
+                        <span class = 'add-change'> Add </span>    
+                    </button>
+                </div>
                 <form class="col-xs-2" id="sign-out">
                     <button type="submit" class="btn btn-custom"> Sign Out </button>
                 </form>
@@ -43,18 +49,25 @@
         </div>
     </nav>
 
+    <div class="jumbotron">
+    <div class="container-fluid">
+      <div class="head text-center">
+        <h2 class="header">Welcome to MyNoteCard!</h2>
+        <p class="subhead">This was created to help keep track of new terms and concepts to use to study later on.
+          <br /> <span class="textBold">Use the '+' button on the top to create a new notecard.</span>
+        </p>
+      </div>
+    </div>
+   </div>
     <!-- side navbar to search for categories-->
     <div class="CHANGETHIS col-xs-10 col-xs-offset-2">
-
         <section class='notecards col-md-9 col-xs-10'>
             <div class="row panels navbar" id="profile-grid">
                 <!--js to insert info here, test notecard -->
             </div>
         </section>
-        <div class="adder col-md-1">
-            <button class="add-btn"> + </button>
-        </div>
     </div>
+
 
 
     <!-- add new notecard modal-->

@@ -100,6 +100,11 @@ div.notecard-definition{
     font-family:Skranji;
 }
 
+.adder{
+    margin-top: 8px;
+    height:50px;
+}
+
 .modal-header{
     padding:0px;
     border-bottom:none;
@@ -149,7 +154,24 @@ div.notecard-definition{
 }
 
 .add-btn, .del-btn{
-    width:25px;
+    width: 39px;
+    height: 33px;
+}
+
+span.add-change{
+    display:none;
+}
+
+button:hover .add-change {
+     display: inline; 
+}
+
+button:hover .symbol {
+     display: none; 
+}
+
+.jumbotron{
+    margin-left:139px;
 }
 
 .panel-heading{

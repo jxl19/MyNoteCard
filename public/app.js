@@ -77,14 +77,14 @@ function navCategorySearch(data) {
         $('#profile-grid').append(catHtml);
     })
 }
-
+//category list for side-nav
 function showCategory(input) {
     let searchTerm = $('.form-control.js-query').val().toLowerCase();
     if (!input.val()) {
         getCategoryData(searchTerm, displayNoteCard);
     };
 };
-
+//if searchbar empty show all notecards
 $('.js-search-form').on('keyup', '.js-query', function (e) {
     e.preventDefault();
     if (e.keyCode == 8) {
@@ -101,15 +101,16 @@ $('.add-btn').on('click', function (e) {
     renderModalContent();
 })
 
-$('.del-btn').on('click', function () {
-    $('#profile-grid').find("div.delete-notecard").removeClass("hidden");
-})
-
 $('.signupForm').on('click', function () {
     renderSignUpModal();
 });
-//signup to ajax
-//make login work
+
+function hideJumbotron() { //hide jumbotron on search
+    $('.jumbotron').fadeOut(function () {
+        $(this).hide();
+        localStorage.setItem('hide', 'true')
+    });
+};
 
 $('.signup-form').on('click', '#user-signup', function (e) {
     let route = 'users/signup';
@@ -217,21 +218,11 @@ function renderModalContent() {
     $('#newnotecard').modal({ show: true });
 }
 
-$('.new-notecard-form').on('click', '.submit', function () {
-    addCardData();
-});
-
-$('#sign-out').on('click', function(e){
-    e.preventDefault();
-    console.log('clickededed');
-    logOut();
-})
-
 function logOut() {
     $.ajax({
         type: 'GET',
         url: BASE_URL + 'logout',
-        success: function(data) {
+        success: function (data) {
             window.location.replace('/');
         }
     })
@@ -255,36 +246,15 @@ function addCardData() {
         data: JSON.stringify(cardInput),
         dataType: "json",
         contentType: "application/json",
-    });
-    getCategoryData(searchTerm, displayNoteCard);
-    getCategoryData(searchTerm, displayCategoryNav);
-    getCategoryData(searchTerm, navCategorySearch);
-    $('#newnotecard').modal('hide');
-};
-
-//edit on click, make function
-$('#profile-grid').on("click", ".editable_text", function () {
-    var data_id = $(this).attr('data-id');
-    var original_text = $(this).text();
-    var new_input = $(`<input class='text_editor' data-id ='${data_id}'>`);
-    new_input.val(original_text);
-    $(this).replaceWith(new_input);
-    new_input.focus();
-});
-
-// function deleteCardData() {
-$('#profile-grid').on('click', '.delete-notecard', function () {
-    let data_id = $(this).attr('data-id');
-    let delete_url = BASE_URL + `notecards/${data_id}`;
-    $.ajax({
-        type: 'DELETE',
-        url: delete_url,
         success: function () {
-            location.reload();
+            getCategoryData(searchTerm, displayNoteCard);
+            getCategoryData(searchTerm, displayCategoryNav);
+            getCategoryData(searchTerm, navCategorySearch);
         }
     });
-});
-// };
+
+    $('#newnotecard').modal('hide');
+};
 
 function updateCardData() {
     $('#profile-grid').on("blur", ".text_editor", function () {
@@ -311,8 +281,18 @@ function updateCardData() {
     });
 };
 
-//put this on a listner somewhere
 updateCardData();
+
+$('.new-notecard-form').on('click', '.submit', function () {
+    hideJumbotron();
+    addCardData();
+});
+
+$('#sign-out').on('click', function (e) {
+    e.preventDefault();
+    console.log('clickededed');
+    logOut();
+})
 
 $('.js-search-form').submit(function (e) {
     let searchTerm = $('.form-control.js-query').val().toLowerCase();
@@ -320,12 +300,39 @@ $('.js-search-form').submit(function (e) {
     getCategoryData(searchTerm, displaySearchResult);
 })
 
+//edit notecard on click
+$('#profile-grid').on("click", ".editable_text", function () {
+    var data_id = $(this).attr('data-id');
+    var original_text = $(this).text();
+    var new_input = $(`<input class='text_editor' data-id ='${data_id}'>`);
+    new_input.val(original_text);
+    $(this).replaceWith(new_input);
+    new_input.focus();
+});
+
+//delete notecard
+$('#profile-grid').on('click', '.delete-notecard', function () {
+    let data_id = $(this).attr('data-id');
+    let delete_url = BASE_URL + `notecards/${data_id}`;
+    let searchTerm = '';
+    $.ajax({
+        type: 'DELETE',
+        url: delete_url,
+        success: function () {
+            getCategoryData(searchTerm, displayNoteCard);
+            getCategoryData(searchTerm, displayCategoryNav);
+            getCategoryData(searchTerm, navCategorySearch);
+        }
+    });
+});
+
 $(document).ready(function () {
     let searchTerm = '';
+    var hidden = localStorage.getItem('hide');
+    if (hidden === 'true') {
+        $('.jumbotron').hide();
+    }
     getCategoryData(searchTerm, displayNoteCard);
     getCategoryData(searchTerm, displayCategoryNav);
     getCategoryData(searchTerm, navCategorySearch);
 });
-
-//document ready to execute above -- getnotecarddata, call again after info is posted instead of location reload
-//function to open close modal when data submitted and new data loaded in
