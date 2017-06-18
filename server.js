@@ -8,16 +8,13 @@ const morgan = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const expressValidator = require('express-validator');
 const flash = require('connect-flash');
-require('./handlers/passport');
 const app = express();
 const {PORT, DATABASE_URL} = require('./config.js');
 const {User} = require('./models')
 const userRouter = require('./routers/userRouter');
 const notecardRouter = require('./routers/notecardRouter');
 // const testRouter = require('./routers/testRouter');
-const authController = require('./controllers/authController');
 const userController = require('./controllers/userController');
 mongoose.Promise = global.Promise;
 

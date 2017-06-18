@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const { User } = require('../models')
-const promisify = require('es6-promisify');
 const passport = require('passport');
-const { BasicStrategy } = require('passport-http');
-
 
 exports.register = (req, res) => {
     console.log("registering a user");
@@ -13,6 +10,7 @@ exports.register = (req, res) => {
         .exec()
         .then(count => {
             if (count > 0) {
+                console.log('reject');
                 return Promise.reject({
                     name: 'AuthenicationError',
                     message: 'email already registered'
@@ -31,7 +29,6 @@ exports.register = (req, res) => {
         })
         .then(user => {
             //login after creating new user
-            console.log(user);
             req.login(user, function (err) {
                 if (err) { return next(err); }
                 req.session.username = req.user.email;
@@ -44,12 +41,6 @@ exports.register = (req, res) => {
             }
             res.status(500).json({ message: 'Internal Server Error' })
         })
-    promise.then(function (user) {
-        console.log(user);
-        res.end(JSON.stringify(user));
-    }, function (err) {
-        res.status(500).json({ message: 'Internal Server Error' });
-    });
 }
 
 exports.logout = (req, res) => {

@@ -7,8 +7,9 @@ ul.nav.nav-tabs{
   font-family: Raleway;
 }
 
-.CHANGETHIS{
+.notecard-container{
     padding-left:0;
+    margin-left: 20%;
 }
 
 .side-nav{
@@ -230,7 +231,6 @@ button:hover .symbol {
 /* card flip end */ 
 
 .boxed{
-    /*margin: 10px 10px 10px 10px;*/
     margin-top:10px;
 }
 
@@ -292,6 +292,22 @@ input[type=checkbox], input[type=radio]{
 .modal-content.sign-up{
     height:450px;
 }
-/*#login-form{
-    width:250px;
-}*/
+
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+  .modal-dialog 
+  {
+    padding-top: 45%;
+
+  }
+  .modal-lg{
+      width:500px;
+  }
+
+  .centerLogin{
+      height:100%;
+  }
+
+  .notecard-container{
+      margin-left:22%;
+  }
+}

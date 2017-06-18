@@ -23,19 +23,6 @@ function renderNavCategories(arr) {
     }
 }
 
-function displaySearchResult(data) {
-    $('#profile-grid').empty();
-    let searchHtml = '';
-    if (data.length) {
-        data.forEach(notecard => {
-            searchHtml = `                            
-            <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
-             `;
-            $('#profile-grid').append(searchHtml);
-        })
-    }
-}
-
 function displayNoteCard(data) {
     $('#profile-grid').empty();
     let notecardhtml = '';
@@ -84,26 +71,6 @@ function showCategory(input) {
         getCategoryData(searchTerm, displayNoteCard);
     };
 };
-//if searchbar empty show all notecards
-$('.js-search-form').on('keyup', '.js-query', function (e) {
-    e.preventDefault();
-    if (e.keyCode == 8) {
-        showCategory($(this));
-    }
-});
-
-$('.navbar-brand').click(function (e) {
-    e.preventDefault();
-    location.reload();
-})
-
-$('.add-btn').on('click', function (e) {
-    renderModalContent();
-})
-
-$('.signupForm').on('click', function () {
-    renderSignUpModal();
-});
 
 function hideJumbotron() { //hide jumbotron on search
     $('.jumbotron').fadeOut(function () {
@@ -112,24 +79,11 @@ function hideJumbotron() { //hide jumbotron on search
     });
 };
 
-$('.signup-form').on('click', '#user-signup', function (e) {
-    let route = 'users/signup';
-    addUser(route);
-    return false;
-});
-
-$('#login-button').on('click', function (e) {
-    e.preventDefault();
-    let route = 'users/login';
-    loginUser(route);
-});
-
 function loginUser(route) {
     let user = {
         email: $('#login-email').val(),
         password: $('#login-password').val()
     }
-    console.log(user);
     $.ajax({
         type: 'POST',
         url: BASE_URL + route,
@@ -137,8 +91,6 @@ function loginUser(route) {
         data: JSON.stringify(user),
         contentType: "application/json",
         success: (data, textStatus, jqXHR) => {
-            console.log(data);
-            console.log(textStatus);
             window.location.replace('/notecard');
         }
     });
@@ -150,7 +102,6 @@ function addUser(route) {
         email: $('#signup-email').val(),
         password: $('#signup-password').val()
     }
-    console.log(newUser);
     $.ajax({
         type: 'POST',
         url: BASE_URL + route,
@@ -158,8 +109,6 @@ function addUser(route) {
         data: JSON.stringify(newUser),
         contentType: "application/json",
         success: (data, textStatus, jqXHR) => {
-            console.log(data);
-            console.log(textStatus);
             window.location.replace('/notecard');
         }
     });
@@ -282,7 +231,7 @@ function updateCardData() {
 };
 
 updateCardData();
-
+//adds new card
 $('.new-notecard-form').on('click', '.submit', function () {
     hideJumbotron();
     addCardData();
@@ -290,14 +239,13 @@ $('.new-notecard-form').on('click', '.submit', function () {
 
 $('#sign-out').on('click', function (e) {
     e.preventDefault();
-    console.log('clickededed');
     logOut();
 })
-
+//search using searchbar
 $('.js-search-form').submit(function (e) {
     let searchTerm = $('.form-control.js-query').val().toLowerCase();
     e.preventDefault();
-    getCategoryData(searchTerm, displaySearchResult);
+    getCategoryData(searchTerm, displayNoteCard);
 })
 
 //edit notecard on click
@@ -324,6 +272,39 @@ $('#profile-grid').on('click', '.delete-notecard', function () {
             getCategoryData(searchTerm, navCategorySearch);
         }
     });
+});
+
+//if searchbar empty show all notecards
+$('.js-search-form').on('keyup', '.js-query', function (e) {
+    e.preventDefault();
+    if (e.keyCode == 8) {
+        showCategory($(this));
+    }
+});
+
+$('.navbar-brand').click(function (e) {
+    e.preventDefault();
+    location.reload();
+})
+
+$('.add-btn').on('click', function (e) {
+    renderModalContent();
+})
+
+$('.signupForm').on('click', function () {
+    renderSignUpModal();
+});
+
+$('.signup-form').on('click', '#user-signup', function (e) {
+    let route = 'users/signup';
+    addUser(route);
+    return false;
+});
+
+$('#login-button').on('click', function (e) {
+    e.preventDefault();
+    let route = 'users/login';
+    loginUser(route);
 });
 
 $(document).ready(function () {
