@@ -3,7 +3,7 @@ const { User } = require('../models')
 const passport = require('passport');
 
 exports.register = (req, res) => {
-    console.log("registering a user11");
+    console.log("registering a user");
     User
         .find({ email: req.body.email })
         .count()
@@ -40,8 +40,10 @@ exports.register = (req, res) => {
             if (err.name === 'AuthenicationError') {
                 return res.status(422).json({ message: err.message })
             }
-            console.log(err);
-            res.status(500).json({ message: err })
+            console.log(err.error);
+            console.log(err.message);
+            console.log(err.name);
+            res.status(500).json({ message: err.error })
         })
 }
 
