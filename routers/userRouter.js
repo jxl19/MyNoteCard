@@ -32,7 +32,9 @@ passport.use(new LocalStrategy({
         if (!user) {
           return done(null, false, req.flash('error', 'Invalid username or password'));
         }
+        console.log('password:' + password);
         if (user.validatePassword(password)) {
+          console.log('password1:' + password);
           return done(null, user);
         }
         else if (!user.validatePassword(password)) {
