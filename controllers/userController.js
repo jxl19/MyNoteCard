@@ -43,7 +43,7 @@ exports.register = (req, res) => {
             console.log(err.error);
             console.log(err.message);
             console.log(err.name);
-            res.status(500).json({ message: err.error })
+            res.status(500).json({ message: err })
         })
 }
 
