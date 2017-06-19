@@ -15,7 +15,6 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
-//route to add a new unique user
 router.post('/signup', userController.register);
 
 passport.use(new LocalStrategy({

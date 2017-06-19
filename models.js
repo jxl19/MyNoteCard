@@ -45,9 +45,8 @@ userSchema.methods.apiRepr = function () {
     password: this.password
   }
 }
-userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
+// userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 userSchema.plugin(mongodbErrorHandler);
-
 const User = mongoose.model('User', userSchema);
 
 const noteCardSchema = mongoose.Schema({

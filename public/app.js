@@ -1,7 +1,7 @@
 // "http://localhost:8080/"
 // "https://rocky-mesa-37949.herokuapp.com/"
 
-const BASE_URL = "https://rocky-mesa-37949.herokuapp.com/";
+const BASE_URL = "http://localhost:8080/";
 
 function getCategoryData(userSearch, cb) {
     const query = {
@@ -129,7 +129,7 @@ function renderSignUpModal() {
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" name="email" class="form-control" id="signup-email">
+                    <input type="text" name="username" class="form-control" id="signup-email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
