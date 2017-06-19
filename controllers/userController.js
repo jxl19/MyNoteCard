@@ -41,12 +41,6 @@ exports.register = (req, res) => {
             }
             res.status(500).json({ message: 'Internal Server Error' })
         })
-    promise.then(function (user) {
-        console.log(user);
-        res.end(JSON.stringify(user));
-    }, function (err) {
-        res.status(500).json({ message: 'Internal server error!' });
-    });
 }
 
 exports.logout = (req, res) => {
