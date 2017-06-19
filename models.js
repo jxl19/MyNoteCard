@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const passportLocalMongoose = require('passport-local-mongoose');
+const validator = require('validator');
 mongoose.Promise = global.Promise;
 
 const userSchema = mongoose.Schema({
@@ -44,7 +45,7 @@ userSchema.methods.apiRepr = function () {
     password: this.password
   }
 }
-// userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 userSchema.plugin(mongodbErrorHandler);
 
 const User = mongoose.model('User', userSchema);
