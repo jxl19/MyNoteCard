@@ -1,4 +1,3 @@
-'use strict';
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
