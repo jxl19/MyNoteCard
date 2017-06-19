@@ -1,7 +1,7 @@
 // "http://localhost:8080/"
 // "https://rocky-mesa-37949.herokuapp.com/"
 
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "https://rocky-mesa-37949.herokuapp.com/";
 
 function getCategoryData(userSearch, cb) {
     const query = {
