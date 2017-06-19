@@ -3,8 +3,8 @@ const { User } = require('../models')
 const passport = require('passport');
 
 exports.register = (req, res) => {
-    console.log("registering a user");
-    var promise = User
+    console.log("registering a user11");
+    User
         .find({ email: req.body.email })
         .count()
         .exec()
@@ -30,6 +30,7 @@ exports.register = (req, res) => {
         .then(user => {
             //login after creating new user
             req.login(user, function (err) {
+                console.log('register success');
                 if (err) { return next(err); }
                 req.session.username = req.user.email;
                 return res.redirect('/notecard');
@@ -39,7 +40,7 @@ exports.register = (req, res) => {
             if (err.name === 'AuthenicationError') {
                 return res.status(422).json({ message: err.message })
             }
-            res.status(500).json({ message: 'Internal Server Error' })
+            res.status(500).json({ message: 'Internal Server Errorr' })
         })
 }
 
