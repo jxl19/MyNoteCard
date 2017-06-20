@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const passportLocalMongoose = require('passport-local-mongoose');
 const validator = require('validator');
+const passportEmail = require('passport-email');
 mongoose.Promise = global.Promise;
 
 const userSchema = mongoose.Schema({

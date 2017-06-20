@@ -15,6 +15,7 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
+
 router.post('/signup', userController.register);
 
 passport.use(new LocalStrategy({

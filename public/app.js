@@ -1,11 +1,11 @@
 // "http://localhost:8080/"
 // "https://rocky-mesa-37949.herokuapp.com/"
 
-const BASE_URL = "https://rocky-mesa-37949.herokuapp.com/";
+// const BASE_URL = "http://localhost:8080/";
 
 function getCategoryData(userSearch, cb) {
     const query = {
-        url: BASE_URL + 'notecards/' + userSearch,
+        url: '/notecards/' + userSearch,
         success: cb
     }
     $.getJSON(query);
@@ -86,7 +86,7 @@ function loginUser(route) {
     }
     $.ajax({
         type: 'POST',
-        url: BASE_URL + route,
+        url:'/'+ route,
         processData: false,
         data: JSON.stringify(user),
         contentType: "application/json",
@@ -104,7 +104,7 @@ function addUser(route) {
     }
     $.ajax({
         type: 'POST',
-        url: BASE_URL + route,
+        url: '/' + route,
         processData: false,
         data: JSON.stringify(newUser),
         contentType: "application/json",
@@ -129,7 +129,7 @@ function renderSignUpModal() {
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" name="username" class="form-control" id="signup-email">
+                    <input type="text" name="email" class="form-control" id="signup-email">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -170,7 +170,7 @@ function renderModalContent() {
 function logOut() {
     $.ajax({
         type: 'GET',
-        url: BASE_URL + 'logout',
+        url: '/' + 'logout',
         success: function (data) {
             window.location.replace('/');
         }
@@ -190,7 +190,7 @@ function addCardData() {
 
     $.ajax({
         type: 'POST',
-        url: BASE_URL + 'notecards',
+        url: '/' + 'notecards',
         processData: false,
         data: JSON.stringify(cardInput),
         dataType: "json",
@@ -212,7 +212,7 @@ function updateCardData() {
         var updated_text = $(`<span class='editable_text' data-id = '${data_id}'>`);
         updated_text.text(new_input);
         $(this).replaceWith(updated_text);
-        let update_url = BASE_URL + `notecards/${data_id}`;
+        let update_url = '/' + `notecards/${data_id}`;
         let updateInput = {
             id: data_id,
             definition: new_input
@@ -261,7 +261,7 @@ $('#profile-grid').on("click", ".editable_text", function () {
 //delete notecard
 $('#profile-grid').on('click', '.delete-notecard', function () {
     let data_id = $(this).attr('data-id');
-    let delete_url = BASE_URL + `notecards/${data_id}`;
+    let delete_url = '/' + `notecards/${data_id}`;
     let searchTerm = '';
     $.ajax({
         type: 'DELETE',

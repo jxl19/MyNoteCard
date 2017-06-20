@@ -40,10 +40,10 @@ exports.register = (req, res) => {
             if (err.name === 'AuthenicationError') {
                 return res.status(422).json({ message: err.message })
             }
-            console.log(err.error);
+            console.log(err);
             console.log(err.message);
             console.log(err.name);
-            res.status(500).json({ message: err })
+            res.status(500).json({ message: err.error })
         })
 }
 
