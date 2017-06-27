@@ -293,6 +293,10 @@ input[type=checkbox], input[type=radio]{
     height:450px;
 }
 
+body{
+    overflow-x:hidden;
+}
+
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
   .modal-dialog 
   {
