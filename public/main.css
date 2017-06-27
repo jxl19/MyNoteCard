@@ -1,10 +1,10 @@
 ul.nav.nav-tabs{
     border: 1px solid rgb(211,211,211);
-      width: 140px;
-  position: fixed;
-  border-radius: 0;
-  height: 100%;
-  font-family: Raleway;
+    width: 140px;
+    position: fixed;
+    border-radius: 0;
+    height: 100%;
+    font-family: Raleway;
 }
 
 .notecard-container{
@@ -43,7 +43,7 @@ div.note-front{
     line-height:200px;
     border: 1px solid 1px solid rgba(210, 205, 205, 0.47);
     border-top: none;
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 div.term{
@@ -117,7 +117,7 @@ div.notecard-definition{
 }
 
 .modal-lg {
-     width: 30%;
+    width: 30%;
 }
 
 .modal-footer{
@@ -164,11 +164,11 @@ span.add-change{
 }
 
 button:hover .add-change {
-     display: inline; 
+    display: inline; 
 }
 
 button:hover .symbol {
-     display: none; 
+    display: none; 
 }
 
 .jumbotron{
@@ -263,13 +263,13 @@ input[type=checkbox], input[type=radio]{
 }
 
 .log-in-container{
-    margin: 0 auto;
-    float:none;
-      min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
-  display: flex;
-  align-items: center;
-  font-family: raleway;
+   margin: 0 auto;
+   float:none;
+   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+   min-height: 100vh; /* These two lines are counted as one :-)       */
+   display: flex;
+   align-items: center;
+   font-family: raleway;
 }
 
 .centerLogin{
@@ -300,7 +300,7 @@ body{
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
   .modal-dialog 
   {
-    padding-top: 45%;
+      padding-top: 45%;
 
   }
   .modal-lg{
