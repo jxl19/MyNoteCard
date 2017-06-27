@@ -266,7 +266,7 @@ input[type=checkbox], input[type=radio]{
    margin: 0 auto;
    float:none;
    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-   min-height: 100vh; /* These two lines are counted as one :-)       */
+   min-height: 100vh; 
    display: flex;
    align-items: center;
    font-family: raleway;
