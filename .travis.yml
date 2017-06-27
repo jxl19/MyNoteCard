@@ -6,6 +6,6 @@ deploy:
   provider: heroku
   api_key:
     secure: eThTaT6+6hc0XlPZfTE61ZVMgWvu+qw1va/k4lowET+jVXuUMgCOO/qF87Uye/nY4RYPcHi19UC/G3bplDmoZRnNBZ8mB2GlUFefTcihodP/xF9F/OWMpnsjQn8Ky60U+hxKsKeeWCm8/pDiEDbVwuXlr09dFcnhLw0uQyW2D6xpfDw1UdWc7kUUIafGAuLD+3xEPZwbuxJ+S1Ni2EvCH0PdjMd2fgpKJgUufvJJ7SOYvlEFhNdvGZW+kVTS8jsPe60isZdSoh+PybjLwuHAqYQakxJLOXaiOrjHslujzsw4A6CleP4PddiGH5RIOkww/6Ve0liy2uazVtin2Ag2yHI7eRH0MkMcjtF/KfTBhm+6ay1g9KVrsbhS6XiL0L+/EXqzw+Q7vbglw+JrWluP9jlxo66DhLVZjCXC1HD8IpbQCtsEUQ+4VPK7fXqQMMj91BgNgWMfrMCIjSTgnhu2zqDEFsQgNiN+41Ngid1EXPaMTw7+M8zlhqfkYnN5fjWIVto+3XLdc5NMkAi+jaOJhLof0gQERQbtb3JZPJNcVAL+7w9TcxQ67Mh+ZzG/RWTAVrUpwXtBGrG3ZSQkJaCAUJ6V76uzuBiFkv9pj/auAdTbXc8a8J4iFAnBl3LG8hcmauyAEo4aCBLOR1+wmkTUI7pCDCVpnnTU2O345AFxOQc=
-  app: rocky-mesa-37949
+  app: mynotecard
   on:
-    repo: jylei/noteapp
+    repo: jylei/MyNoteCard
