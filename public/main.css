@@ -7,11 +7,6 @@ ul.nav.nav-tabs{
     font-family: Raleway;
 }
 
-.notecard-container{
-    padding-left:0;
-    margin-left: 20%;
-}
-
 .side-nav{
     padding-left:0;
 }
@@ -185,7 +180,6 @@ button:hover .symbol {
     text-align: right;
 }
 
-/* card flip */ 
 #front-container {
   position: relative;
   margin-bottom: 55px;
@@ -201,8 +195,23 @@ button:hover .symbol {
   transform-style: preserve-3d;
   transition: all 0.5s linear;
 }
-#front-container:hover #front-card {
-  transform: rotateY(180deg);
+
+.notecard-container{
+    padding-left:0;
+    margin-left: 20%;
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50%;
+}
+
+#front-card.flipped {
+    transform:rotateY(180deg);
 }
 .face {
   position: absolute;
@@ -227,8 +236,6 @@ button:hover .symbol {
   height:75px;
   cursor: text;
 }
-
-/* card flip end */ 
 
 .boxed{
     margin-top:10px;
@@ -262,6 +269,9 @@ input[type=checkbox], input[type=radio]{
     margin-top:8px;
 }
 
+.update_card:hover{
+    text-decoration: underline;
+}
 .log-in-container{
    margin: 0 auto;
    float:none;
@@ -280,13 +290,13 @@ input[type=checkbox], input[type=radio]{
     background-color:white;
 }
 
-.signupForm{
+.demo{
     margin-top: 10px;
 }
 
 .signupForm:hover{
     text-decoration: underline;
-    color:royalblue;
+    color:white;
 }
 
 .modal-content.sign-up{
@@ -295,6 +305,24 @@ input[type=checkbox], input[type=radio]{
 
 body{
     overflow-x:hidden;
+}
+
+.landing-page{
+    background-image: url("notecard-image.jpg");
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+.header-about{
+  display: inline-block;
+  vertical-align: bottom;
+  line-height: normal;
+  background-color:rgba(171, 171, 89, 0.56);
+  width:100%;
+}
+
+.header-about>h3 {
+    color: black;
+    text-align:center;
 }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
@@ -311,7 +339,4 @@ body{
       height:100%;
   }
 
-  .notecard-container{
-      margin-left:22%;
-  }
 }

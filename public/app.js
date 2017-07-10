@@ -1,8 +1,3 @@
-// "http://localhost:8080/"
-// "https://rocky-mesa-37949.herokuapp.com/"
-
-// const BASE_URL = "http://localhost:8080/";
-
 function getCategoryData(userSearch, cb) {
     const query = {
         url: '/notecards/' + userSearch,
@@ -29,7 +24,7 @@ function displayNoteCard(data) {
     if (data.length) {
         data.forEach(notecard => {
             notecardhtml += `                            
-            <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
+            <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right" data-title="Delete" data-toggle="modal" data-target="#delete"><span class ="glyphicon glyphicon-edit editable_text" data-id = "${notecard.id}"></span><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
         })
     }
@@ -86,7 +81,7 @@ function loginUser(route) {
     }
     $.ajax({
         type: 'POST',
-        url:'/'+ route,
+        url: '/' + route,
         processData: false,
         data: JSON.stringify(user),
         contentType: "application/json",
@@ -201,36 +196,41 @@ function addCardData() {
             getCategoryData(searchTerm, navCategorySearch);
         }
     });
-
     $('#newnotecard').modal('hide');
 };
-
-function updateCardData() {
-    $('#profile-grid').on("blur", ".text_editor", function () {
-        var data_id = $(this).attr('data-id');
-        var new_input = $(this).val();
-        var updated_text = $(`<span class='editable_text' data-id = '${data_id}'>`);
-        updated_text.text(new_input);
-        $(this).replaceWith(updated_text);
-        let update_url = '/' + `notecards/${data_id}`;
-        let updateInput = {
-            id: data_id,
-            definition: new_input
+//redo this -- add update button on card, goes to update on click of button
+// editable text focus on click
+function updateCardData(card) {
+    var data_id = card.attr('data-id');
+    var new_input = card.val();
+    var updated_text = $(`<span class='editable_text' data-id = '${data_id}'>`);
+    updated_text.text(new_input);
+    card.replaceWith(updated_text);
+    let searchTerm = '';
+    let update_url = '/' + `notecards/${data_id}`;
+    let updateInput = {
+        id: data_id,
+        definition: new_input
+    }
+    $.ajax({
+        type: 'PUT',
+        url: update_url,
+        data: JSON.stringify(updateInput),
+        dataType: "json",
+        contentType: "application/json",
+        success: function () {
+            getCategoryData(searchTerm, displayNoteCard);
+            getCategoryData(searchTerm, displayCategoryNav);
+            getCategoryData(searchTerm, navCategorySearch);
         }
-        $.ajax({
-            type: 'PUT',
-            url: update_url,
-            data: JSON.stringify(updateInput),
-            dataType: "json",
-            contentType: "application/json",
-            success: function () {
-                location.reload();
-            }
-        })
-    });
+    })
 };
 
-updateCardData();
+$('#profile-grid').on("blur", ".text_editor", function () {
+    updateCardData($(this));
+    $('#profile-grid').find('.update_card').hide();
+});
+
 //adds new card
 $('.new-notecard-form').on('click', '.submit', function () {
     hideJumbotron();
@@ -248,13 +248,16 @@ $('.js-search-form').submit(function (e) {
     getCategoryData(searchTerm, displayNoteCard);
 })
 
-//edit notecard on click
+
+
+//edit notecard on click, make button for this.
 $('#profile-grid').on("click", ".editable_text", function () {
     var data_id = $(this).attr('data-id');
-    var original_text = $(this).text();
-    var new_input = $(`<input class='text_editor' data-id ='${data_id}'>`);
+    var original_text = $(this).parents('#front-container').find(".notecard-definition").text();
+    console.log(original_text);
+    var new_input = $(`<input class='text_editor' data-id ='${data_id}'><br><span class ="update_card">Accept</span>`);
     new_input.val(original_text);
-    $(this).replaceWith(new_input);
+    $(this).parents('#front-container').find(".notecard-definition").replaceWith(new_input);
     new_input.focus();
 });
 
@@ -305,6 +308,10 @@ $('#login-button').on('click', function (e) {
     e.preventDefault();
     let route = 'users/login';
     loginUser(route);
+});
+
+$(".notecard-container").on("click", "#front-card", function () {
+    $(this).toggleClass('flipped');
 });
 
 $(document).ready(function () {
