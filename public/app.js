@@ -198,8 +198,7 @@ function addCardData() {
     });
     $('#newnotecard').modal('hide');
 };
-//redo this -- add update button on card, goes to update on click of button
-// editable text focus on click
+
 function updateCardData(card) {
     var data_id = card.attr('data-id');
     var new_input = card.val();
@@ -250,7 +249,7 @@ $('.js-search-form').submit(function (e) {
 
 
 
-//edit notecard on click, make button for this.
+//edit notecard on click
 $('#profile-grid').on("click", ".editable_text", function () {
     var data_id = $(this).attr('data-id');
     var original_text = $(this).parents('#front-container').find(".notecard-definition").text();

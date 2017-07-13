@@ -1,10 +1,10 @@
 ul.nav.nav-tabs{
     border: 1px solid rgb(211,211,211);
-    width: 140px;
     position: fixed;
     border-radius: 0;
     height: 100%;
     font-family: Raleway;
+    padding-right:0px;
 }
 
 .side-nav{
@@ -66,6 +66,7 @@ div.notecard-definition{
 }
 
 #sign-out{
+    margin-left:5%;
     font-family: raleway;
     background-color:white;
 }
@@ -186,9 +187,6 @@ button:hover .symbol {
   height: 200px;
   z-index: 1;
 }
-#front-container {
-  perspective: 1000;
-}
 #front-card {
   width: 100%;
   height: 100%;
@@ -228,7 +226,7 @@ button:hover .symbol {
 
 .text_editor {
   border: none;
-  background: #ddd;
+  background:white;
   color: #000;
   font-size: 14px;
   font-family: arial;
@@ -325,13 +323,14 @@ body{
     text-align:center;
 }
 
+
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
   .modal-dialog 
   {
       padding-top: 45%;
 
   }
-  .modal-lg{
+  #signup>.modal-lg{
       width:500px;
   }
 
@@ -339,4 +338,50 @@ body{
       height:100%;
   }
 
+  #sign-out{
+      width:8.3333%;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+    .sidenavbar{
+        display:none;
+    }
+    .navbar-brand.col-xs-3{
+        width:100%;
+        text-align:center;
+    }
+    .navbar-header.col-xs-10{
+        width:100%;
+        margin-right: 0px;
+        margin-left: 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+
+    }
+    .js-search-form{
+        display:none;
+    }
+    .adder{
+        width:50%
+    }
+    .add-btn{
+        width:100%;
+    }
+    #sign-out{
+        width:50%;
+        margin-left: 0px;
+        padding-left: 0px;
+
+    }
+    #sign-out>.btn{
+        width:100%;
+    }
+    .notecard-container{
+        width:100%;
+        margin-left:2.5%;
+    }
+    .notecards{
+        width:100%;
+    }
 }
