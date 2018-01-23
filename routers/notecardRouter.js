@@ -130,6 +130,10 @@ router.put('/:id', (req, res) => {
         });
 });
 
+// router.put('/test', (req, res) => {
+//     res.send('Got a PUT request at /test');
+// })
+
 router.delete('/:id', (req, res) => {
     NoteCard
         .findByIdAndRemove(req.params.id)
@@ -142,5 +146,7 @@ router.delete('/:id', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 });
+
+
 
 module.exports = router;

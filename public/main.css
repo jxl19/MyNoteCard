@@ -41,6 +41,12 @@ div.note-front{
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
+div.note-back{
+    border: 1px solid 1px solid rgba(210, 205, 205, 0.47);
+    border-top: none;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
 div.term{
     text-align: center;
     vertical-align: middle;
@@ -151,8 +157,9 @@ div.notecard-definition{
 }
 
 .add-btn, .del-btn{
-    width: 39px;
+    width: 120px;
     height: 33px;
+    margin-left: 17px;
 }
 
 span.add-change{
@@ -168,7 +175,7 @@ button:hover .symbol {
 }
 
 .jumbotron{
-    margin-left:127px;
+    margin-left:140px;
 }
 
 .panel-heading{
@@ -323,6 +330,21 @@ body{
     text-align:center;
 }
 
+.info{
+    margin-top: 8px;
+}
+.glyphicon-info-sign {
+    font-size: 30px;
+    margin-left: 10px;
+}
+.cat-nav{
+    color: grey;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+}
+
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
   .modal-dialog 
@@ -340,6 +362,9 @@ body{
 
   #sign-out{
       width:8.3333%;
+  }
+  .add-btn{
+      width: 8.333%;
   }
 }
 

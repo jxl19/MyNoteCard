@@ -8,8 +8,11 @@ function getCategoryData(userSearch, cb) {
 //categories list for nav
 function renderNavCategories(arr) {
     $(".nav-stacked").empty();
+    //add border bottom or smth later
+    $(".nav-stacked").append(`<h5 class="cat-nav">Categories</h5>`)
     var x = [];
     for (var i = 0; i < arr.length; i++) {
+        // let navHtml = `<h5>Categories</h5>`;
         if (!x.includes(arr[i])) {
             x.push(arr[i]);
             let navhtml = `<li role="presentation" class = "nav-category" id = "${arr[i]}"><a href="#">${arr[i]}</a></li>`
@@ -50,8 +53,7 @@ function navCategorySearch(data) {
         if (data.length) {
             data.forEach(notecard => {
                 if (cat == notecard.category.toLowerCase()) {
-                    catHtml += `                            
-            <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
+                    catHtml += `<div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
                 }
             })
@@ -70,9 +72,16 @@ function showCategory(input) {
 function hideJumbotron() { //hide jumbotron on search
     $('.jumbotron').fadeOut(function () {
         $(this).hide();
-        localStorage.setItem('hide', 'true')
+        localStorage.setItem('hide', 'true');
     });
 };
+
+function showJumbotron(){
+    $('.jumbotron').fadeIn(function() {
+        $(this).show();
+        localStorage.setItem('hide', 'false');
+    })
+}
 
 function loginUser(route) {
     let user = {
@@ -224,6 +233,11 @@ function updateCardData(card) {
         }
     })
 };
+//jumbotrton on ff is weird
+$('.info').on('click', function(e) {
+    e.preventDefault();
+    showJumbotron();
+});
 
 $('#profile-grid').on("blur", ".text_editor", function () {
     updateCardData($(this));
@@ -244,17 +258,16 @@ $('#sign-out').on('click', function (e) {
 $('.js-search-form').submit(function (e) {
     let searchTerm = $('.form-control.js-query').val().toLowerCase();
     e.preventDefault();
+    hideJumbotron();
     getCategoryData(searchTerm, displayNoteCard);
 })
-
-
 
 //edit notecard on click
 $('#profile-grid').on("click", ".editable_text", function () {
     var data_id = $(this).attr('data-id');
     var original_text = $(this).parents('#front-container').find(".notecard-definition").text();
     console.log(original_text);
-    var new_input = $(`<input class='text_editor' data-id ='${data_id}'><br><span class ="update_card">Accept</span>`);
+    var new_input = $(`<input class='text_editor' data-id ='${data_id}'><br><div class ="update_card col-xs-6">Update</div><div class="cancel_update col-xs-6">Cancel</div>`);
     new_input.val(original_text);
     $(this).parents('#front-container').find(".notecard-definition").replaceWith(new_input);
     new_input.focus();
@@ -275,6 +288,12 @@ $('#profile-grid').on('click', '.delete-notecard', function () {
         }
     });
 });
+
+//FIX LATER
+// $('.cancel_update').on('click', function(e) {
+//     console.log('clcascas');
+//     $(this).parents('.notecard-container').find('#front-card').toggleClass('flipped');
+// })
 
 //if searchbar empty show all notecards
 $('.js-search-form').on('keyup', '.js-query', function (e) {
@@ -311,7 +330,9 @@ $('#login-button').on('click', function (e) {
 
 $(".notecard-container").on("click", "#front-card", function () {
     $(this).toggleClass('flipped');
+    $(this).find('.term').toggleClass('hide');
 });
+
 
 $(document).ready(function () {
     let searchTerm = '';
