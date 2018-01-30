@@ -344,7 +344,9 @@ body{
     padding-bottom: 15px;
     border-bottom: 1px solid black;
 }
-
+.cat-nav:hover{
+    cursor: pointer;
+}
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
   .modal-dialog 

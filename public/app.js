@@ -39,20 +39,21 @@ function displayCategoryNav(data) {
     let navArr = [];
     if (data.length) {
         data.forEach(notecard => {
-            navArr.push(notecard.category.toLowerCase());
+            navArr.push(notecard.category);
         })
     }
     renderNavCategories(navArr);
 }
 //search for the navbar onclick
 function navCategorySearch(data) {
-    $(".nav-stacked").on("click", ".nav-category", function () {
+    $(".nav-stacked").on("click", ".nav-category", function (e) {
+        e.preventDefault();
         let cat = $(this).attr('id');
         let catHtml = '';
         $('#profile-grid').empty();
         if (data.length) {
             data.forEach(notecard => {
-                if (cat == notecard.category.toLowerCase()) {
+                if (cat == notecard.category) {
                     catHtml += `<div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
                 }
@@ -70,14 +71,14 @@ function showCategory(input) {
 };
 
 function hideJumbotron() { //hide jumbotron on search
-    $('.jumbotron').fadeOut(function () {
+    $('.jumbotron').fadeOut(300, function () {
         $(this).hide();
         localStorage.setItem('hide', 'true');
     });
 };
 
 function showJumbotron(){
-    $('.jumbotron').fadeIn(function() {
+    $('.jumbotron').fadeIn(300, function() {
         $(this).show();
         localStorage.setItem('hide', 'false');
     })
@@ -181,13 +182,25 @@ function logOut() {
     })
 }
 
+function getAllData(searchTerm) {
+    getCategoryData(searchTerm, displayNoteCard);
+    getCategoryData(searchTerm, displayCategoryNav);
+    getCategoryData(searchTerm, navCategorySearch);
+}
+
 function addCardData() {
     const colors = ["pink", "green", "yellow", "blue"];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     let searchTerm = $('.form-control.js-query').val().toLowerCase();
+    let string = $('#category-input').val().split(' ');
+    let catUpper = [];
+    for(var i = 0; i < string.length; i++) {
+        catUpper.push(string[i][0].toUpperCase() + string[i].slice(1));
+    }
+    catUpper = catUpper.join(' ')
     let cardInput = {
         title: $('#title-input').val(),
-        category: $('#category-input').val(),
+        category: catUpper,
         definition: $('#definition-input').val(),
         color: randomColor
     }
@@ -200,9 +213,7 @@ function addCardData() {
         dataType: "json",
         contentType: "application/json",
         success: function () {
-            getCategoryData(searchTerm, displayNoteCard);
-            getCategoryData(searchTerm, displayCategoryNav);
-            getCategoryData(searchTerm, navCategorySearch);
+            getAllData(searchTerm)
         }
     });
     $('#newnotecard').modal('hide');
@@ -227,16 +238,22 @@ function updateCardData(card) {
         dataType: "json",
         contentType: "application/json",
         success: function () {
-            getCategoryData(searchTerm, displayNoteCard);
-            getCategoryData(searchTerm, displayCategoryNav);
-            getCategoryData(searchTerm, navCategorySearch);
+            getAllData(searchTerm)
         }
     })
 };
-//jumbotrton on ff is weird
+
+var clicked = true;
 $('.info').on('click', function(e) {
     e.preventDefault();
-    showJumbotron();
+    if(clicked) {
+        clicked = false;
+        hideJumbotron();
+    }
+    else {
+        clicked = true;
+        showJumbotron();
+    }
 });
 
 $('#profile-grid').on("blur", ".text_editor", function () {
@@ -282,18 +299,10 @@ $('#profile-grid').on('click', '.delete-notecard', function () {
         type: 'DELETE',
         url: delete_url,
         success: function () {
-            getCategoryData(searchTerm, displayNoteCard);
-            getCategoryData(searchTerm, displayCategoryNav);
-            getCategoryData(searchTerm, navCategorySearch);
+            getAllData(searchTerm)
         }
     });
 });
-
-//FIX LATER
-// $('.cancel_update').on('click', function(e) {
-//     console.log('clcascas');
-//     $(this).parents('.notecard-container').find('#front-card').toggleClass('flipped');
-// })
 
 //if searchbar empty show all notecards
 $('.js-search-form').on('keyup', '.js-query', function (e) {
@@ -302,6 +311,12 @@ $('.js-search-form').on('keyup', '.js-query', function (e) {
         showCategory($(this));
     }
 });
+
+$('.nav-stacked').on('click', '.cat-nav', function (e) {
+    let searchTerm = '';
+    getAllData(searchTerm)
+})
+
 
 $('.navbar-brand').click(function (e) {
     e.preventDefault();
@@ -340,7 +355,5 @@ $(document).ready(function () {
     if (hidden === 'true') {
         $('.jumbotron').hide();
     }
-    getCategoryData(searchTerm, displayNoteCard);
-    getCategoryData(searchTerm, displayCategoryNav);
-    getCategoryData(searchTerm, navCategorySearch);
+    getAllData(searchTerm)
 });
