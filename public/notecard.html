@@ -9,54 +9,53 @@
     <link rel="stylesheet" href="main.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Skranji" rel="stylesheet">
 </head>
+<!-- test nav > after side-nav -->
+<!-- <ul class="test-nav nav nav-tabs">
+                <li class="test-page"><a>Test</a></li>
+            </ul> -->
+<!-- side nav bar -->
+<!-- <div class="container-fluid">
+                    <div class="sidenavbar col-xs-2">
+                        <div class="side-nav col-md-2 col-xs-12">
+        
+                            <ul class="nav nav-tabs nav-stacked col-xs-2 col-md-1">
+                            </ul>
+                    </div>
+                </div> -->
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-                <div class="sidenavbar col-xs-2">
-                    <div class="side-nav col-md-2 col-xs-12">
-                        <!--test nav -->
-                        <!--<ul class="test-nav nav nav-tabs">
-                <li class="test-page"><a>Test</a></li>
-            </ul>-->
-                        <ul class="nav nav-tabs nav-stacked col-xs-2 col-md-1">
-                        </ul>
-                    <!--</div>-->
-                </div>
-            </div>
-            <div class="navbar-header col-xs-10">
-                <a class="navbar-brand col-md-2 col-xs-3" href="#">MyNoteCard</a>
-                <form class="js-search-form col-md-6 col-xs-6">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control js-query" placeholder="Search using words in definition">
-                            <div class="input-group-addon">
+    <nav class="navbar">
+        <a class="logo" href="#">MyNoteCard</a>
+        <form class="js-search-form">
+            <!-- <div class="input-group"> -->
+            <input type="text" class="def-search js-query" placeholder="Search using words in definition">
+            <!-- add a search glyph after searchbar -->
+            <!-- <div class="input-group-addon">
                                 <i class="glyphicon glyphicon-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="adder col-xs-1">
+                            </div> -->
+            <!-- </div> -->
+        </form>
+        <button class="info">info</button>
+        <button id="sign-out" type="submit"> Sign Out </button>
+        <!-- buttons -->
+        <!-- <div class="adder">
                     <button class="add-btn"> 
                         <span class = 'symbol'> + </span>
                         <span class = 'add-change'> Add </span>    
                     </button>
-                </div>
-                <!-- next to signout make a questionmark thing maybe that reopens the jumbo from log in -->
-                <form class="col-xs-1" id="sign-out">
-                    <button type="submit" class="btn btn-custom"> Sign Out </button>
-                </form>
-                <div class ="info col-xs-1"><i class="glyphicon glyphicon-info-sign"></i></div>
-            </div>
+                </div> -->
+
+        </div>
         </div>
     </nav>
-
+    <hr>
     <div class="jumbotron">
         <div class="container-fluid">
             <div class="head text-center">
                 <h2 class="header">Welcome to MyNoteCard!</h2>
                 <p class="subhead">This was created to help keep track of new terms and concepts to use to study later on.
-                    <br /> <span class="textBold">Use the '+' button on the top to create a new notecard.</span>
+                    <br />
+                    <span class="textBold">Use the '+' button on the top to create a new notecard.</span>
                 </p>
             </div>
         </div>

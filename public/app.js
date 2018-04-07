@@ -64,7 +64,7 @@ function navCategorySearch(data) {
 }
 //category list for side-nav
 function showCategory(input) {
-    let searchTerm = $('.form-control.js-query').val().toLowerCase();
+    let searchTerm = $('.def-search.js-query').val().toLowerCase();
     if (!input.val()) {
         getCategoryData(searchTerm, displayNoteCard);
     };
@@ -191,7 +191,7 @@ function getAllData(searchTerm) {
 function addCardData() {
     const colors = ["pink", "green", "yellow", "blue"];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    let searchTerm = $('.form-control.js-query').val().toLowerCase();
+    let searchTerm = $('.def-search.js-query').val().toLowerCase();
     let string = $('#category-input').val().split(' ');
     let catUpper = [];
     for(var i = 0; i < string.length; i++) {
@@ -271,9 +271,10 @@ $('#sign-out').on('click', function (e) {
     e.preventDefault();
     logOut();
 })
+
 //search using searchbar
-$('.js-search-form').submit(function (e) {
-    let searchTerm = $('.form-control.js-query').val().toLowerCase();
+$('.js-search-form').keyup( (e) => {
+    let searchTerm = $('.def-search.js-query').val().toLowerCase();
     e.preventDefault();
     hideJumbotron();
     getCategoryData(searchTerm, displayNoteCard);
