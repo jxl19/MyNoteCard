@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Skranji" rel="stylesheet">
 </head>
 <!-- test nav > after side-nav -->
@@ -25,6 +26,7 @@
 
 <body>
     <nav class="navbar">
+        <div id="side-menu-icon"><i class="fas fa-bars fa-2x"></i></div>
         <a class="logo" href="#">MyNoteCard</a>
         <form class="js-search-form">
             <!-- <div class="input-group"> -->
@@ -44,11 +46,14 @@
                         <span class = 'add-change'> Add </span>    
                     </button>
                 </div> -->
-
-        </div>
-        </div>
     </nav>
-    <hr>
+    <!-- <hr> -->
+    <div id="side-menu">
+        <a href ="#" class="btn-close">&times;</a>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
     <div class="jumbotron">
         <div class="container-fluid">
             <div class="head text-center">

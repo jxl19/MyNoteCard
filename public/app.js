@@ -344,11 +344,29 @@ $('#login-button').on('click', function (e) {
     loginUser(route);
 });
 
-$(".notecard-container").on("click", "#front-card", function () {
+$('.notecard-container').on('click', '#front-card', function () {
     $(this).toggleClass('flipped');
     $(this).find('.term').toggleClass('hide');
 });
 
+$('#side-menu-icon').on('click', function() {
+    console.log('clicked');
+    openSlideMenu();
+    
+    // $('#side-menu').css('width', '250px');
+})
+$('.btn-close').on('click', function() {
+    console.log('clickeasd')
+    closeSlideMenu();
+})
+function openSlideMenu(){
+    $('#side-menu').css('width', '250px');
+    // $('#side-menu').addClass('showmenu');
+}
+
+function closeSlideMenu(){
+    $('#side-menu').css('width', '0px');
+}
 
 $(document).ready(function () {
     let searchTerm = '';
