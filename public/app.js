@@ -350,23 +350,32 @@ $('.notecard-container').on('click', '#front-card', function () {
 });
 
 $('#side-menu-icon').on('click', function() {
-    console.log('clicked');
     openSlideMenu();
-    
-    // $('#side-menu').css('width', '250px');
 })
 $('.btn-close').on('click', function() {
-    console.log('clickeasd')
     closeSlideMenu();
 })
+
+$('.add-form-input').on('click', function() {
+    console.log('add form clicked');
+    $('#notecard-add-form').removeClass('hide-add');
+})
 function openSlideMenu(){
-    $('#side-menu').css('width', '250px');
-    // $('#side-menu').addClass('showmenu');
+    $('#side-menu').css('width', '221px');
+    $('.main').css('margin-left', '221px');
 }
 
 function closeSlideMenu(){
     $('#side-menu').css('width', '0px');
+    $('.main').css('margin-left', '0px');
 }
+
+$('textarea').each(function () {
+    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+  }).on('input', function () {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
 
 $(document).ready(function () {
     let searchTerm = '';

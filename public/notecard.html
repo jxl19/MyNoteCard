@@ -7,7 +7,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
+        crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Skranji" rel="stylesheet">
 </head>
 <!-- test nav > after side-nav -->
@@ -26,20 +27,26 @@
 
 <body>
     <nav class="navbar">
-        <div id="side-menu-icon"><i class="fas fa-bars fa-2x"></i></div>
+        <div id="side-menu-icon">
+            <i class="fas fa-bars fa-2x"></i>
+        </div>
         <a class="logo" href="#">MyNoteCard</a>
         <form class="js-search-form">
-            <!-- <div class="input-group"> -->
             <input type="text" class="def-search js-query" placeholder="Search using words in definition">
-            <!-- add a search glyph after searchbar -->
-            <!-- <div class="input-group-addon">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </div> -->
-            <!-- </div> -->
         </form>
         <button class="info">info</button>
         <button id="sign-out" type="submit"> Sign Out </button>
-        <!-- buttons -->
+        <!-- instead of using this add button, we'll have another input field that drops down a form on click and lets users fill in the data that we need. -->
+        <!-- 
+        `
+    <div class="form-group">
+        <label for="exampleTextarea" class = "noteheader">Add New Notecard</label>
+        <input class="form-control" type="text" placeholder="Title" id="title-input">
+        <input class="form-control" type="text" placeholder="Catetory" id="category-input">
+        <textarea class="form-control" id="definition-input" rows="3" placeholder = 
+        "Define term"></textarea>
+    </div>                   
+     <div class="modal-footer text-center"><button class="submit" type="button">Submit</button></div>` -->
         <!-- <div class="adder">
                     <button class="add-btn"> 
                         <span class = 'symbol'> + </span>
@@ -49,47 +56,61 @@
     </nav>
     <!-- <hr> -->
     <div id="side-menu">
-        <a href ="#" class="btn-close">&times;</a>
+        <a href="#" class="btn-close">&times;</a>
         <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Contact</a>
     </div>
-    <div class="jumbotron">
-        <div class="container-fluid">
-            <div class="head text-center">
-                <h2 class="header">Welcome to MyNoteCard!</h2>
-                <p class="subhead">This was created to help keep track of new terms and concepts to use to study later on.
-                    <br />
-                    <span class="textBold">Use the '+' button on the top to create a new notecard.</span>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="notecard-container col-xs-11">
-        <section class='notecards col-md-9 col-xs-10'>
-            <div class="row panels navbar" id="profile-grid">
-                <!--js to insert info here, test notecard -->
-            </div>
-        </section>
-    </div>
-
-    <!-- add new notecard modal-->
-    <div class="modal fade modal-profile" tabindex="-1" role="dialog" aria-labelledby="modalProfile" aria-hidden="true" id="newnotecard">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">×</button>
-                    <h3 class="modal-title"></h3>
+    <div class="main">
+        <div class="jumbotron">
+            <div class="container-fluid">
+                <div class="head text-center">
+                    <h2 class="header">Welcome to MyNoteCard!</h2>
+                    <p class="subhead">This was created to help keep track of new terms and concepts to use to study later on.
+                        <br />
+                        <span class="textBold">Use the '+' button on the top to create a new notecard.</span>
+                    </p>
                 </div>
-                <form class="new-notecard-form">
-                    <div class="modal-body">
-                    </div>
+            </div>
+        </div>
+        <form class="add-form">
+            <input type="text" class="add-form-input" placeholder="Add a new term">
+            <div id="notecard-add-form" class="hide-add">
+                <textarea placeholder="Define term" id="text-area"></textarea>
+                <div class="labels">
+                    <input type="text" placeholder="Title" id="title-input">
+                    <input type="text" placeholder="Catetory" id="category-input">
+                    <button class="submit add-submit" type="button">Submit</button>
+                </div>
+            </div>
 
-                </form>
+        </form>
+
+        <div class="notecard-container col-xs-11">
+            <section class='notecards col-md-9 col-xs-10'>
+                <div class="row panels navbar" id="profile-grid">
+                    <!--js to insert info here, test notecard -->
+                </div>
+            </section>
+        </div>
+
+        <!-- add new notecard modal-->
+        <div class="modal fade modal-profile" tabindex="-1" role="dialog" aria-labelledby="modalProfile" aria-hidden="true" id="newnotecard">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">×</button>
+                        <h3 class="modal-title"></h3>
+                    </div>
+                    <form class="new-notecard-form">
+                        <div class="modal-body">
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="app.js"></script>

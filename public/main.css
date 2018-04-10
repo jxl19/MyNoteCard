@@ -35,13 +35,13 @@ div.note-front{
     line-height:200px;
     border: 1px solid 1px solid rgba(210, 205, 205, 0.47);
     border-top: none;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2); */
 }
 
 div.note-back{
     border: 1px solid 1px solid rgba(210, 205, 205, 0.47);
     border-top: none;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.2); */
 }
 
 div.term{
@@ -66,16 +66,6 @@ div.notecard-definition{
 .form-control{
     border-radius:0;
     font-family:raleway;
-}
-
-#category-input {
-    border-top:0px;
-    border-bottom:0px;
-}
-
-.noteheader{
-    width: 100%;
-    text-align:center;
 }
 
 .navbar-default{
@@ -173,7 +163,9 @@ button:hover .symbol {
     padding-bottom:35px;
     padding-right:0px;
     border-bottom:none;
-    box-shadow: 0 0px 7px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 0px;
+    border-top-right-radius:0px;
+    /* box-shadow: 0 0px 7px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.2); */
 }
 .btn-group{
     text-align: right;
@@ -355,12 +347,12 @@ body{
 .js-search-form{
     margin-top: 10px;
     display: inline-block;
-    width:58%;
+    width:50%;
 }
 
 .def-search{
     height: 45px;
-    width: 80%;
+    width: 90%;
     padding-left: 10px;
 }
 .navbar{
@@ -376,15 +368,69 @@ body{
     width:0;
     position:fixed;
     z-index:1;
-    top:0;
+    top:56;
     left:0;
-    background-color:#111;
+    background-color:#fff;
     opacity:0.9;
     overflow-x:hidden;
+}
+
+#side-menu a{
+    display:block;
 }
 .menu-open{
     width:250px;
 }
+
+.add-form{
+    width:100%;
+    padding-left:18px;
+    margin-bottom:15px;
+    text-align:center;
+}
+.add-form-input{
+    padding-left:10px;
+    height:45px;
+    display: inline-block;
+    width:40%;
+}
+
+.hide-add{
+    display:none;
+}
+
+#notecard-add-form {
+    margin:0 auto;
+    width: 40%;
+    border:1px solid grey;
+    border-top:none;
+}
+#text-area {
+    width:100%;
+    height:90px !important;
+    padding-left:10px;
+    border:none;
+    resize:none;
+}
+#labels{
+    width: 100%;
+}
+
+#category-input, #title-input{
+    height:45px;
+    width:30%;
+    padding-left:10px;
+    border:none;
+}
+
+#category-input{
+    float:left;
+}
+
+.add-submit{
+    width:33%;
+}
+
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
   .modal-dialog 
   {
