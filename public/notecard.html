@@ -36,23 +36,6 @@
         </form>
         <button class="info">info</button>
         <button id="sign-out" type="submit"> Sign Out </button>
-        <!-- instead of using this add button, we'll have another input field that drops down a form on click and lets users fill in the data that we need. -->
-        <!-- 
-        `
-    <div class="form-group">
-        <label for="exampleTextarea" class = "noteheader">Add New Notecard</label>
-        <input class="form-control" type="text" placeholder="Title" id="title-input">
-        <input class="form-control" type="text" placeholder="Catetory" id="category-input">
-        <textarea class="form-control" id="definition-input" rows="3" placeholder = 
-        "Define term"></textarea>
-    </div>                   
-     <div class="modal-footer text-center"><button class="submit" type="button">Submit</button></div>` -->
-        <!-- <div class="adder">
-                    <button class="add-btn"> 
-                        <span class = 'symbol'> + </span>
-                        <span class = 'add-change'> Add </span>    
-                    </button>
-                </div> -->
     </nav>
     <!-- <hr> -->
     <div id="side-menu">
@@ -74,11 +57,10 @@
             </div>
         </div>
         <form class="add-form">
-            <input type="text" class="add-form-input" placeholder="Add a new term">
+            <input type="text" class="add-form-input" id="title-input" placeholder="Add a new term">
             <div id="notecard-add-form" class="hide-add">
-                <textarea placeholder="Define term" id="text-area"></textarea>
+                <textarea placeholder="Define term" id="definition-input"></textarea>
                 <div class="labels">
-                    <input type="text" placeholder="Title" id="title-input">
                     <input type="text" placeholder="Catetory" id="category-input">
                     <button class="submit add-submit" type="button">Submit</button>
                 </div>

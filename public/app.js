@@ -193,18 +193,20 @@ function addCardData() {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     let searchTerm = $('.def-search.js-query').val().toLowerCase();
     let string = $('#category-input').val().split(' ');
+    let title = $('#title-input').val();
+    let definition = $('#definition-input').val();
     let catUpper = [];
+    //uppercase first letter of categories
     for (var i = 0; i < string.length; i++) {
         catUpper.push(string[i][0].toUpperCase() + string[i].slice(1));
     }
     catUpper = catUpper.join(' ')
     let cardInput = {
-        title: $('#title-input').val(),
+        title: title,
         category: catUpper,
-        definition: $('#definition-input').val(),
+        definition: definition,
         color: randomColor
     }
-
     $.ajax({
         type: 'POST',
         url: '/' + 'notecards',
@@ -213,10 +215,11 @@ function addCardData() {
         dataType: "json",
         contentType: "application/json",
         success: function () {
-            getAllData(searchTerm)
+            getAllData(searchTerm);
+            $('#notecard-add-form').addClass('hide-add');
+            $('.add-form')[0].reset();
         }
     });
-    $('#newnotecard').modal('hide');
 };
 
 function updateCardData(card) {
@@ -243,16 +246,16 @@ function updateCardData(card) {
     })
 };
 
-var clicked = true;
-$('.info').on('click', function (e) {
-    e.preventDefault();
-    if (clicked) {
-        clicked = false;
-        hideJumbotron();
-    }
-    else {
+var clicked = false;
+$('.info').on('click', function () {
+    console.log(clicked);
+    if (!clicked) {
         clicked = true;
         showJumbotron();
+    }
+    else {
+        clicked = false;
+        hideJumbotron();
     }
 });
 
@@ -262,7 +265,8 @@ $('#profile-grid').on("blur", ".text_editor", function () {
 });
 
 //adds new card
-$('.new-notecard-form').on('click', '.submit', function () {
+$('.add-form').on('click', '.submit', function () {
+    console.log('submitted');
     hideJumbotron();
     addCardData();
 });
