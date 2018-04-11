@@ -77,8 +77,8 @@ function hideJumbotron() { //hide jumbotron on search
     });
 };
 
-function showJumbotron(){
-    $('.jumbotron').fadeIn(300, function() {
+function showJumbotron() {
+    $('.jumbotron').fadeIn(300, function () {
         $(this).show();
         localStorage.setItem('hide', 'false');
     })
@@ -194,7 +194,7 @@ function addCardData() {
     let searchTerm = $('.def-search.js-query').val().toLowerCase();
     let string = $('#category-input').val().split(' ');
     let catUpper = [];
-    for(var i = 0; i < string.length; i++) {
+    for (var i = 0; i < string.length; i++) {
         catUpper.push(string[i][0].toUpperCase() + string[i].slice(1));
     }
     catUpper = catUpper.join(' ')
@@ -244,9 +244,9 @@ function updateCardData(card) {
 };
 
 var clicked = true;
-$('.info').on('click', function(e) {
+$('.info').on('click', function (e) {
     e.preventDefault();
-    if(clicked) {
+    if (clicked) {
         clicked = false;
         hideJumbotron();
     }
@@ -273,7 +273,7 @@ $('#sign-out').on('click', function (e) {
 })
 
 //search using searchbar
-$('.js-search-form').keyup( (e) => {
+$('.js-search-form').keyup((e) => {
     let searchTerm = $('.def-search.js-query').val().toLowerCase();
     e.preventDefault();
     hideJumbotron();
@@ -349,33 +349,48 @@ $('.notecard-container').on('click', '#front-card', function () {
     $(this).find('.term').toggleClass('hide');
 });
 
-$('#side-menu-icon').on('click', function() {
+$('#side-menu-icon').on('click', function () {
     openSlideMenu();
 })
-$('.btn-close').on('click', function() {
+$('.btn-close').on('click', function () {
     closeSlideMenu();
 })
-
-$('.add-form-input').on('click', function() {
-    console.log('add form clicked');
+let formOpened = false;
+$('.add-form-input').on('click', function () {
     $('#notecard-add-form').removeClass('hide-add');
+    formOpened = true;
 })
-function openSlideMenu(){
+$(window).on('click', function () {
+    let focused = $('#notecard-add-form').children().is(':focus') || $('#notecard-add-form').children().children().is(':focus');
+    let openForm = $('.add-form-input').is(':focus');
+    if(formOpened){
+        if(focused || openForm) {
+            return;
+        }
+        else{
+            $('#notecard-add-form').addClass('hide-add');
+            formOpened = false;
+        }
+    }
+})
+
+
+function openSlideMenu() {
     $('#side-menu').css('width', '221px');
     $('.main').css('margin-left', '221px');
 }
 
-function closeSlideMenu(){
+function closeSlideMenu() {
     $('#side-menu').css('width', '0px');
     $('.main').css('margin-left', '0px');
 }
 
 $('textarea').each(function () {
     this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-  }).on('input', function () {
+}).on('input', function () {
     this.style.height = 'auto';
     this.style.height = (this.scrollHeight) + 'px';
-  });
+});
 
 $(document).ready(function () {
     let searchTerm = '';
