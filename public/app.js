@@ -27,7 +27,7 @@ function displayNoteCard(data) {
     if (data.length) {
         data.forEach(notecard => {
             notecardhtml += `                            
-            <div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right" data-title="Delete" data-toggle="modal" data-target="#delete"><span class ="glyphicon glyphicon-edit editable_text" data-id = "${notecard.id}"></span><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
+            <div class="notecard-data" id="front-container"><div class="panel-heading ${notecard.color}"><div data-title="Delete" data-toggle="modal" data-target="#delete"><span class="far fa-trash-alt delete-notecard" data-id = "${notecard.id}"></span><span class ="far fa-edit editable_text" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
         })
     }
@@ -265,7 +265,8 @@ $('#profile-grid').on("blur", ".text_editor", function () {
 });
 
 //adds new card
-$('.add-form').on('click', '.submit', function () {
+//changed onclick to use .submit instead
+$('.add-form').submit(function () {
     console.log('submitted');
     hideJumbotron();
     addCardData();

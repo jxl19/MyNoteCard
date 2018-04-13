@@ -51,6 +51,7 @@ div.term{
 }
 
 .notecards{
+    width:75%;
     font-family:raleway;
 }
 
@@ -110,8 +111,16 @@ div.notecard-definition{
 }
 
 .delete-notecard{
-    text-align:right;
-    margin-right:10px;
+    /* text-align:right; */
+    float:right;
+    margin-right:7px;
+    margin-top:7px;
+}
+
+.fa-edit{
+    float:right;
+    margin-top:7px;
+    margin-right: 3px;
 }
 
 .delete-notecard:hover{
@@ -186,6 +195,7 @@ button:hover .symbol {
 
 .notecard-container{
     padding-left:0;
+    width:91%;
     margin-left: 20%;
     -webkit-transition: -webkit-transform 1s;
     -moz-transition: -moz-transform 1s;
@@ -386,13 +396,14 @@ body{
     width:100%;
     padding-left:18px;
     margin-bottom:15px;
-    text-align:center;
 }
 .add-form-input{
+    margin-top: 15px;
     padding-left:10px;
     height:45px;
     display: inline-block;
     width:40%;
+    margin-left:30%;
 }
 
 .hide-add{
@@ -400,37 +411,42 @@ body{
 }
 
 #notecard-add-form {
-    margin:0 auto;
-    width: 40%;
+    width: 41%;
     border:1px solid grey;
     border-top:none;
+    margin-left:30%;
 }
 #definition-input {
-    width:100%;
+    width:97%;
     height:90px !important;
     padding-left:10px;
     border:none;
     resize:none;
 }
 .labels{
-    width: 100%;
+    width: 103%;
     height:45px;
 }
 
 #category-input{
-    height:45px;
-    width:60%;
+    height:41px;
+    width:100%;
     padding-left:10px;
+    float:left;
     border:none;
 }
-
-#category-input{
-    float:left;
-}
-
 .add-submit{
     width:33%;
     margin-top:10px;
+    display: inline-block;
+    float:right;
+}
+
+.notecard-data{
+    margin-left:0;
+    width:48%;
+    margin-right:13px;
+    display:inline-block;
 }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {

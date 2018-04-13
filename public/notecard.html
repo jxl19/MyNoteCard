@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>MyNoteCard</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
         crossorigin="anonymous">
@@ -62,40 +62,24 @@
                 <textarea placeholder="Define term" id="definition-input"></textarea>
                 <div class="labels">
                     <input type="text" placeholder="Catetory" id="category-input">
-                    <button class="submit add-submit" type="button">Submit</button>
+                    <!-- changed type button > submit -->
+                        <button class="submit add-submit" type="submit">Submit</button>
+
                 </div>
             </div>
-
         </form>
 
-        <div class="notecard-container col-xs-11">
-            <section class='notecards col-md-9 col-xs-10'>
+        <div class="notecard-container">
+            <section class='notecards'>
                 <div class="row panels navbar" id="profile-grid">
                     <!--js to insert info here, test notecard -->
                 </div>
             </section>
         </div>
-
-        <!-- add new notecard modal-->
-        <div class="modal fade modal-profile" tabindex="-1" role="dialog" aria-labelledby="modalProfile" aria-hidden="true" id="newnotecard">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">×</button>
-                        <h3 class="modal-title"></h3>
-                    </div>
-                    <form class="new-notecard-form">
-                        <div class="modal-body">
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </body>
 
 </html>
