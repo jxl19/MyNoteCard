@@ -248,7 +248,6 @@ function updateCardData(card) {
 
 var clicked = false;
 $('.info').on('click', function () {
-    console.log(clicked);
     if (!clicked) {
         clicked = true;
         showJumbotron();
@@ -265,9 +264,8 @@ $('#profile-grid').on("blur", ".text_editor", function () {
 });
 
 //adds new card
-//changed onclick to use .submit instead
-$('.add-form').submit(function () {
-    console.log('submitted');
+$('.add-form').submit(function (e) {
+    e.preventDefault();
     hideJumbotron();
     addCardData();
 });
@@ -354,8 +352,16 @@ $('.notecard-container').on('click', '#front-card', function () {
     $(this).find('.term').toggleClass('hide');
 });
 
+let menuClicked = false;
 $('#side-menu-icon').on('click', function () {
-    openSlideMenu();
+    if (!menuClicked) {
+        menuClicked = true;
+        openSlideMenu();
+    }
+    else {
+        menuClicked = false;
+        closeSlideMenu();
+    }
 })
 $('.btn-close').on('click', function () {
     closeSlideMenu();
