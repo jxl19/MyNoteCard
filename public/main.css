@@ -490,46 +490,27 @@ body{
   }
 }
 
-@media only screen and (max-width: 570px) {
+@media only screen and (max-width: 730px) {
     .sidenavbar{
         display:none;
     }
-    .navbar-brand.col-xs-3{
-        width:100%;
-        text-align:center;
-    }
-    .navbar-header.col-xs-10{
-        width:100%;
-        margin-right: 0px;
-        margin-left: 0px;
-        padding-right: 0px;
-        padding-left: 0px;
-
-    }
     .js-search-form{
+        width:90%;
+        margin-left:13%;
+        margin-right:5%
+    }
+    #notecard-add-form, .add-form-input{
+        width:70%;
+        margin-left:15%;
+        margin-right:5%
+    }
+    .info, #sign-out{
         display:none;
-        width:100%;
-    }
-    .adder{
-        width:50%
-    }
-    .add-btn{
-        width:100%;
-    }
-    #sign-out{
-        width:50%;
-        margin-left: 0px;
-        padding-left: 0px;
-
-    }
-    #sign-out>.btn{
-        width:100%;
     }
     .notecard-container{
         width:100%;
-        margin-left:2.5%;
     }
     .notecards{
-        width:100%;
+        width:85%;
     }
 }
