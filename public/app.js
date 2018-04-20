@@ -15,7 +15,7 @@ function renderNavCategories(arr) {
         // let navHtml = `<h5>Categories</h5>`;
         if (!x.includes(arr[i])) {
             x.push(arr[i]);
-            let navhtml = `<a class ="nav-category" id ="${arr[i]}" href ="#">${arr[i]}</a>`
+            let navhtml = `<div class="category-list" id=${arr[i]}><i class="fas fa-caret-right"></i><a class ="nav-category" href ="#">${arr[i]}</a><div>`
             $("#side-menu").append(navhtml);
         }
     }
@@ -26,7 +26,7 @@ function displayNoteCard(data) {
     let notecardhtml = '';
     if (data.length) {
         data.forEach(notecard => {
-            notecardhtml += `                            
+            notecardhtml +=`                            
             <div class="notecard-data" id="front-container"><div class="panel-heading ${notecard.color}"><div data-title="Delete" data-toggle="modal" data-target="#delete"><span class="far fa-trash-alt delete-notecard" data-id = "${notecard.id}"></span><span class ="far fa-edit editable_text" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
         })
@@ -47,9 +47,11 @@ function displayCategoryNav(data) {
 //search for the navbar onclick
 let catHtml;
 function navCategorySearch(data) {
-    $("#side-menu").on("click", ".nav-category", function (e) {
+    $("#side-menu").on("click", ".category-list", function (e) {
         e.preventDefault();
+        console.log(data);
         let cat = $(this).attr('id');
+        console.log(cat);
         $('#profile-grid').empty();
         // console.log($('#profile-grid'));
         if (data.length) {
@@ -58,8 +60,9 @@ function navCategorySearch(data) {
             data.forEach(notecard => {
                 if (cat == notecard.category) {
                     // console.log({cat: cat, notecardCat:notecard.category});
-                     catHtml += `<div class="col-md-6 col-xs-10 col-xs-offset-1 col-md-offset-0" id="front-container"><div class="panel-heading ${notecard.color}"><div class=" pull-right"  data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash delete-notecard" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition editable_text" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
-             `;
+                     catHtml += `                            
+                     <div class="notecard-data" id="front-container"><div class="panel-heading ${notecard.color}"><div data-title="Delete" data-toggle="modal" data-target="#delete"><span class="far fa-trash-alt delete-notecard" data-id = "${notecard.id}"></span><span class ="far fa-edit editable_text" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
+                      `;
                 }
             })
         }
@@ -321,8 +324,8 @@ $('.js-search-form').on('keyup', '.js-query', function (e) {
     }
 });
 
-$('#side-menu').on('click', '.nav-category', function (e) {
-    console.log('working')
+$('#side-menu').on('click', '.category-list', function (e) {
+    console.log('working');
     let searchTerm = '';
     navCategorySearch(searchTerm)
 })
@@ -355,7 +358,7 @@ $('#login-button').on('click', function (e) {
 
 $('.notecard-container').on('click', '#front-card', function () {
     $(this).toggleClass('flipped');
-    $(this).find('.term').toggleClass('hide');
+    $(this).find('.term').toggleClass('hide-add');
 });
 
 let menuClicked = false;
@@ -393,8 +396,8 @@ $(window).on('click', function () {
 
 
 function openSlideMenu() {
-    $('#side-menu').css('width', '221px');
-    $('.main').css('margin-left', '221px');
+    $('#side-menu').css('width', '219px');
+    $('.main').css('margin-left', '219px');
 }
 
 function closeSlideMenu() {
