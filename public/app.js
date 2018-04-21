@@ -27,7 +27,7 @@ function displayNoteCard(data) {
     if (data.length) {
         data.forEach(notecard => {
             notecardhtml +=`                            
-            <div class="notecard-data" id="front-container"><div class="panel-heading ${notecard.color}"><div data-title="Delete" data-toggle="modal" data-target="#delete"><span class="far fa-trash-alt delete-notecard" data-id = "${notecard.id}"></span><span class ="far fa-edit editable_text" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
+            <div class="notecard-data" id="front-container"><div class="panel-heading ${notecard.color}"><div data-title="Delete" data-toggle="modal" data-target="#delete"><span class="far fa-trash-alt delete-notecard" data-id = "${notecard.id}"></span><span class ="far editable_text" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
              `;
         })
     }
@@ -61,7 +61,7 @@ function navCategorySearch(data) {
                 if (cat == notecard.category) {
                     // console.log({cat: cat, notecardCat:notecard.category});
                      catHtml += `                            
-                     <div class="notecard-data" id="front-container"><div class="panel-heading ${notecard.color}"><div data-title="Delete" data-toggle="modal" data-target="#delete"><span class="far fa-trash-alt delete-notecard" data-id = "${notecard.id}"></span><span class ="far fa-edit editable_text" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
+                     <div class="notecard-data" id="front-container"><div class="panel-heading ${notecard.color}"><div data-title="Delete" data-toggle="modal" data-target="#delete"><span class="far fa-trash-alt delete-notecard" data-id = "${notecard.id}"></span><span class ="far editable_text" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
                       `;
                 }
             })
@@ -359,6 +359,8 @@ $('#login-button').on('click', function (e) {
 $('.notecard-container').on('click', '#front-card', function () {
     $(this).toggleClass('flipped');
     $(this).find('.term').toggleClass('hide-add');
+    console.log($(this).parent().find('.panel-heading').children().children('.editable_text'));
+    $(this).parent().find('.panel-heading').children().children('.editable_text').toggleClass('fa-edit');
 });
 
 let menuClicked = false;
