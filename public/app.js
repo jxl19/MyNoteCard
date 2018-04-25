@@ -278,7 +278,7 @@ $('.add-form').submit(function (e) {
     addCardData();
 });
 
-$('#sign-out').on('click', function (e) {
+$('.sign-out').on('click', function (e) {
     e.preventDefault();
     logOut();
 })

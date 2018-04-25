@@ -316,9 +316,6 @@ body{
     text-align:center;
 }
 
-.info{
-    margin-top: 8px;
-}
 .glyphicon-info-sign {
     font-size: 30px;
     margin-left: 10px;
@@ -330,7 +327,7 @@ body{
     padding-top: 10px;
     padding-bottom: 15px;
 }
-.cat-nav, .fa-trash-alt, .fa-edit, .info, .category-list, .fa-bars, #sign-out:hover{
+.cat-nav, .fa-trash-alt, .fa-edit, .info, .category-list, .fa-bars, .sign-out:hover{
     cursor: pointer;
 }
 
@@ -340,26 +337,34 @@ body{
 
 .logo{
     /* float: left; */
+    font-family: 'Do Hyeon', sans-serif;
+    text-decoration: none;
     margin-top:15px;
     width: 10%;
     font-size: 24px;
     font-weight: 800;
     margin-right:20px;
+    color:rgba(0, 0, 0, 0.6);
 }
 
-#sign-out, .info{
+.action-buttons{
+    margin-left: 20px;
+}
+.info{
+    margin-left: 24%;
+}
+.sign-out, .info{
     display:inline-block;
-    margin-left: 10px;
     margin-top:8px;
-    width:10%;
-    font-family: raleway;
-    /* background-color:white; */
+    width:2%;
+    font-size: 20px;
 }
 
 .js-search-form{
     margin-top: 10px;
     display: inline-block;
     width:50%;
+    margin-left:5%;
 }
 
 .def-search{
@@ -478,6 +483,9 @@ body{
     .notecards, .notecard-data{
         width:85%;
     }
+    .info{
+        margin-left: 16%;
+    }
 }
 
 @media only screen and(max-width:780px){
@@ -500,7 +508,7 @@ body{
       height:100%;
   }
 
-  #sign-out{
+  .sign-out{
      width:10%;
   }
   .add-btn{
@@ -508,7 +516,7 @@ body{
   }
 }
 
-@media only screen and (max-width: 730px) {
+@media only screen and (max-width: 770px) {
     .sidenavbar{
         display:none;
     }
@@ -522,8 +530,8 @@ body{
         margin-left:15%;
         margin-right:5%
     }
-    .info, #sign-out{
-        display:none;
+    .info, .sign-out{
+        display:none !important;
     }
     .notecard-container{
         width:100%;

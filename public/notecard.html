@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
         crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Skranji" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Skranji|Do+Hyeon" rel="stylesheet">
 </head>
 <!-- test nav > after side-nav -->
 <!-- <ul class="test-nav nav nav-tabs">
@@ -34,8 +34,12 @@
         <form class="js-search-form">
             <input type="text" class="def-search js-query" placeholder="Search using words in definition">
         </form>
-        <button class="info">info</button>
-        <button id="sign-out" type="submit"> Sign Out </button>
+        <!-- <button class="info">info</button> -->
+        <!-- <div class="action-buttons"> -->
+            <i class="fas fa-info info"></i>
+            <i class="fas fa-sign-out-alt sign-out"></i>
+        <!-- </div> -->
+        <!-- <button id="sign-out" type="submit"> Sign Out </button> -->
     </nav>
     <!-- <hr> -->
     <div id="side-menu">
@@ -56,7 +60,7 @@
             </div>
         </div>
         <form class="add-form">
-            <input type="text" class="add-form-input" id="title-input" placeholder="Add a new term">
+            <input type="text" class="add-form-input" id="title-input" placeholder="Add a new term" autocomplete="off">
             <div id="notecard-add-form" class="hide-add">
                 <input type="text" placeholder="Catetory" id="category-input">
                 <textarea placeholder="Define term" id="definition-input"></textarea>
