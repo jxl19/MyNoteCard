@@ -3,27 +3,14 @@
 
 <head>
     <meta charset="utf-8">
+    
     <title>MyNoteCard</title>
 
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
         crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Skranji|Do+Hyeon" rel="stylesheet">
 </head>
-<!-- test nav > after side-nav -->
-<!-- <ul class="test-nav nav nav-tabs">
-                <li class="test-page"><a>Test</a></li>
-            </ul> -->
-<!-- side nav bar -->
-<!-- <div class="container-fluid">
-                    <div class="sidenavbar col-xs-2">
-                        <div class="side-nav col-md-2 col-xs-12">
-        
-                            <ul class="nav nav-tabs nav-stacked col-xs-2 col-md-1">
-                            </ul>
-                    </div>
-                </div> -->
 
 <body>
     <nav class="navbar">
@@ -34,14 +21,9 @@
         <form class="js-search-form">
             <input type="text" class="def-search js-query" placeholder="Search using words in definition">
         </form>
-        <!-- <button class="info">info</button> -->
-        <!-- <div class="action-buttons"> -->
-            <i class="fas fa-info info"></i>
-            <i class="fas fa-sign-out-alt sign-out"></i>
-        <!-- </div> -->
-        <!-- <button id="sign-out" type="submit"> Sign Out </button> -->
+            <i class="fas fa-info info"><span class="info-tip">Toggle info</span></i>
+            <i class="fas fa-sign-out-alt sign-out"><span class="signout-tip">Signout </span></i>
     </nav>
-    <!-- <hr> -->
     <div id="side-menu">
         <a href="#">Home</a>
         <a href="#">About</a>
@@ -54,7 +36,7 @@
                     <h2 class="header">Welcome to MyNoteCard!</h2>
                     <p class="subhead">This was created to help keep track of new terms and concepts to use to study later on.
                         <br />
-                        <span class="textBold">Use the '+' button on the top to create a new notecard.</span>
+                        <span class="textBold">Add new notecards by using the add form below!</span>
                     </p>
                 </div>
             </div>
@@ -64,24 +46,19 @@
             <div id="notecard-add-form" class="hide-add">
                 <input type="text" placeholder="Catetory" id="category-input">
                 <textarea placeholder="Define term" id="definition-input"></textarea>
-                <!-- <div class="labels"> -->
                 <button class="submit add-submit" type="submit">Submit</button>
-
-                <!-- </div> -->
             </div>
         </form>
 
         <div class="notecard-container">
             <section class='notecards'>
-                <div class="row panels navbar" id="profile-grid">
-                    <!--js to insert info here, test notecard -->
+                <div class="row panels" id="profile-grid">
                 </div>
             </section>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </body>
 
 </html>

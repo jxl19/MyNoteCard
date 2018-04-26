@@ -352,6 +352,10 @@ $('.register').on('click', function(){
     window.location.replace('/signup');
 })
 
+$('.logo').on('click', function() {
+    window.location.replace('/notecard');
+})
+
 function openSlideMenu() {
     $('#side-menu').css('width', '219px');
     $('.main').css('margin-left', '219px');

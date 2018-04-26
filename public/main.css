@@ -168,8 +168,12 @@ button:hover .symbol {
 }
 
 .jumbotron{
-    background-color:lightgoldenrodyellow;
+    background-color:#91c6ea99;
+    font-size: 18px;
     text-align: center;
+    font-family: skranji;
+    width:50%;
+    margin:auto;
 }
 
 .panel-heading{
@@ -351,6 +355,9 @@ input[type=checkbox], input[type=radio]{
 
 body{
     overflow:hidden;
+    margin:0;
+    position:fixed;
+    width:100vw;
 }
 
 .landing-page{
@@ -373,18 +380,16 @@ body{
     text-align:center;
 }
 
-.glyphicon-info-sign {
-    font-size: 30px;
-    margin-left: 10px;
-}
 .cat-nav{
     /* text-align: center; */
     font-size:20px;
     margin-left:10px;
     padding-top: 10px;
     padding-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid black;
 }
-.cat-nav, .fa-trash-alt, .fa-edit, .info, .category-list, .fa-bars, .sign-out:hover{
+.fa-trash-alt, .fa-edit, .info, .category-list, .fa-bars, .sign-out:hover{
     cursor: pointer;
 }
 
@@ -412,9 +417,29 @@ body{
 }
 .sign-out, .info{
     display:inline-block;
+    position:relative;
     margin-top:8px;
     width:2%;
     font-size: 20px;
+}
+.info .info-tip, .sign-out .signout-tip{
+    visibility: hidden;
+    width: 120px;
+    background-color: beige;
+    text-align: center;
+    font-size:14px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.info:hover .info-tip, .sign-out:hover .signout-tip{
+    visibility: visible;
 }
 
 .js-search-form{
@@ -428,14 +453,17 @@ body{
     height: 45px;
     width: 90%;
     padding-left: 10px;
+    margin-bottom:10px;
 }
 .navbar{
     width:100%;
+    background-color: #e8e5e573;
 }
 #side-menu-icon{
     float:left;
     width:3%;
     margin-top:14px;
+    margin-left:8px;
 }
 #side-menu{
     height:100%;
@@ -447,6 +475,7 @@ body{
     background-color:#fff;
     opacity:0.9;
     overflow-x:hidden;
+    font-family:raleway; 
 }
 
 .category-list{
@@ -493,40 +522,28 @@ body{
 
 #notecard-add-form {
     width: 40%;
-    /* border:1px solid grey; */
-    /* border-top:none; */
     margin-left:30%;
 }
 #definition-input {
     width:100%;
     height:90px !important;
     padding-left:10px;
-    /* border:none; */
     border-top:none;
     resize:none;
+    font-family:Arial;
+    padding-top:12px;
 }
-/* .labels{
-    width: 100%;
-    height:45px;
-    border: 1px solid grey;
-} */
 
 #category-input{
     height:41px;
     width:100%;
     padding-left:10px;
-    /* float:left; */
     display:inline-block;
-    /* border:none; */
-    /* border-top: none; */
     margin-top: -4px;
-    /* border-left: 1px solid lightgray; */
 }
 .add-submit{
     width:33%;
-    /* margin-top:10px; */
     display: inline-block;
-    /* float:right; */
 }
 
 .notecard-data{
@@ -546,12 +563,32 @@ body{
     .notecards, .notecard-data{
         width:85%;
     }
+    .logo{
+    font-family: 'Do Hyeon', sans-serif;
+    text-decoration: none;
+    margin-top: 0px;
+    width: auto;
+    font-size: 24px;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    display: block;
+    padding-top: 10px;
+    padding-left:5%;
+    }
     .info{
-        margin-left: 16%;
+        margin-left: 2%;
+    }
+    .js-search-form{
+        width: 77%;
+        margin-left: 8%;
     }
 }
 
 @media only screen and (max-device-width:1200px){
+    .info{
+        margin-left: 12%;
+    }
     .centerLogin{
         width:70%;
         height: 33vh;
@@ -581,6 +618,18 @@ body{
 @media only screen and(max-width:780px){
     .notecards, .notecard-data{
         width:100%;
+    }
+    .js-search-form{
+        width:68%;
+    }
+    .def-search{
+        width:100%;
+    }
+    .info{
+        margin-left:9%;
+    }
+    .sign-out{
+        display:none;
     }
 }
 
