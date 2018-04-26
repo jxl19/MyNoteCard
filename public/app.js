@@ -12,7 +12,6 @@ function renderNavCategories(arr) {
     $("#side-menu").append(`<h5 class="cat-nav">Categories</h5>`)
     var x = [];
     for (var i = 0; i < arr.length; i++) {
-        // let navHtml = `<h5>Categories</h5>`;
         if (!x.includes(arr[i])) {
             x.push(arr[i]);
             let navhtml = `<div class="category-list" id=${arr[i]}><i class="fas fa-caret-right"></i><a class ="nav-category" href ="#">${arr[i]}</a><div>`
@@ -53,13 +52,10 @@ function navCategorySearch(data) {
         let cat = $(this).attr('id');
         console.log(cat);
         $('#profile-grid').empty();
-        // console.log($('#profile-grid'));
         if (data.length) {
-            // console.log(data.length);
             catHtml = '';
             data.forEach(notecard => {
                 if (cat == notecard.category) {
-                    // console.log({cat: cat, notecardCat:notecard.category});
                      catHtml += `                            
                      <div class="notecard-data" id="front-container"><div class="panel-heading ${notecard.color}"><div data-title="Delete" data-toggle="modal" data-target="#delete"><span class="far fa-trash-alt delete-notecard" data-id = "${notecard.id}"></span><span class ="far editable_text" data-id = "${notecard.id}"></span></div></div><div id="front-card" class="panel panel-default shadow"><div class="note-front front face" id = "${notecard.category}"><div class="term" data-id = "${notecard.id}">${notecard.title}</div></div><div class="back face note-back data-id = ${notecard.id}"><div class = "notecard-header">${notecard.category}</div><div class = "notecard-definition" data-id = "${notecard.id}">${notecard.definition}</div></div></div></div>
                       `;
@@ -105,7 +101,9 @@ function loginUser(route) {
         contentType: "application/json",
         success: (data, textStatus, jqXHR) => {
             window.location.replace('/notecard');
-        }
+        },
+    }).fail((data) => {
+        $('.login-error').css('display', 'block');
     });
 }
 
@@ -124,61 +122,10 @@ function addUser(route) {
         success: (data, textStatus, jqXHR) => {
             window.location.replace('/notecard');
         }
+    }).fail((data)=>{
+        $('.signup-error').css('display', 'block');
     });
 };
-
-function renderSignUpModal() {
-    let content = $('.modal-body');
-    content.empty();
-    var signUp = '';
-    signUp = `
-        <div class="col-md-12">
-            <h4 class="text-center">Sign Up</h4>
-            
-            <form id="signup-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" name="name" class="form-control" id="signup-name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" class="form-control" id="signup-email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control" id="signup-password">
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" name="confirm-password" class="form-control" id="confirm-password">
-                </div>
-                <div class="footer text-center">
-                    <button type="submit" class="btn btn-custom" id="user-signup">Sign Up</button>
-                </div>
-            </form>
-        </div>
-    </div>`
-    $('.modal-body').html(signUp);
-    $('#signup').modal({ show: true });
-}
-
-function renderModalContent() {
-    var content = $('.modal-body');
-    content.empty();
-    var newNote = '';
-    newNote = `
-    <div class="form-group">
-        <label for="exampleTextarea" class = "noteheader">Add New Notecard</label>
-        <input class="form-control" type="text" placeholder="Title" id="title-input">
-        <input class="form-control" type="text" placeholder="Catetory" id="category-input">
-        <textarea class="form-control" id="definition-input" rows="3" placeholder = 
-        "Define term"></textarea>
-    </div>                   
-     <div class="modal-footer text-center"><button class="submit" type="button">Submit</button></div>`
-        ;
-    $('.modal-body').html(newNote);
-    $('#newnotecard').modal({ show: true });
-}
 
 function logOut() {
     $.ajax({
@@ -295,7 +242,6 @@ $('.js-search-form').keyup((e) => {
 $('#profile-grid').on("click", ".editable_text", function () {
     var data_id = $(this).attr('data-id');
     var original_text = $(this).parents('#front-container').find(".notecard-definition").text();
-    console.log(original_text);
     var new_input = $(`<input class='text_editor' data-id ='${data_id}'><br><div class ="update_card col-xs-6">Update</div><div class="cancel_update col-xs-6">Cancel</div>`);
     new_input.val(original_text);
     $(this).parents('#front-container').find(".notecard-definition").replaceWith(new_input);
@@ -340,13 +286,16 @@ $('.add-btn').on('click', function (e) {
     renderModalContent();
 })
 
-$('.signupForm').on('click', function () {
-    renderSignUpModal();
-});
-
-$('.signup-form').on('click', '#user-signup', function (e) {
-    let route = 'users/signup';
-    addUser(route);
+$('#signup-form').on('click', '#user-signup', function (e) {
+    $('.signup-error-password').css('display', 'none');
+    $('.signup-error').css('display', 'none');
+    if($('#signup-password').val() !== $('#confirm-password').val()){
+        $('.signup-error-password').css('display', 'block');
+    }
+    else{
+        let route = 'users/signup';
+        addUser(route);
+    }
     return false;
 });
 
@@ -374,14 +323,17 @@ $('#side-menu-icon').on('click', function () {
         closeSlideMenu();
     }
 })
+
 $('.btn-close').on('click', function () {
     closeSlideMenu();
 })
+
 let formOpened = false;
 $('.add-form-input').on('click', function () {
     $('#notecard-add-form').removeClass('hide-add');
     formOpened = true;
 })
+
 $(window).on('click', function () {
     let focused = $('#notecard-add-form').children().is(':focus') || $('#notecard-add-form').children().children().is(':focus');
     let openForm = $('.add-form-input').is(':focus');
@@ -396,6 +348,9 @@ $(window).on('click', function () {
     }
 })
 
+$('.register').on('click', function(){
+    window.location.replace('/signup');
+})
 
 function openSlideMenu() {
     $('#side-menu').css('width', '219px');
