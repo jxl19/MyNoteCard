@@ -49,6 +49,9 @@ function ensureAuthenticated(req, res, next) {
 app.use('/users', userRouter);
 app.use('/notecards', notecardRouter); 
 // app.use('/test', testRouter);
+app.use('/signup', (req, res) => {
+  res.status(200).sendFile(__dirname + '/public/signup.html');
+})
 app.get('/notecard',ensureAuthenticated,(req, res) => {
   res.status(200).sendFile(__dirname + '/public/notecard.html');
 });
