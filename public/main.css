@@ -171,9 +171,10 @@ button:hover .symbol {
     background-color:#91c6ea99;
     font-size: 18px;
     text-align: center;
-    font-family: skranji;
+    font-family: sans-serif;
     width:50%;
     margin:auto;
+    margin-top:5%;
 }
 
 .panel-heading{
@@ -205,14 +206,19 @@ button:hover .symbol {
     width:96%;
 }
 
-#login-button{
+#login-button, .add-submit{
     border: 1px solid #90CAF9;
     background-color: #90CAF9;
     padding: 10px 18px;
 }
 
-#login-button:hover{
+#login-button, .add-submit:hover{
     background-color:#64B5F6;
+}
+
+.signup-label{
+    font-size:28px;
+    text-align: center;
 }
 
 #user-signup{
@@ -354,9 +360,9 @@ input[type=checkbox], input[type=radio]{
 }
 
 body{
-    overflow:hidden;
+    overflow-x:hidden;
+    position:absolute;
     margin:0;
-    position:fixed;
     width:100vw;
 }
 
@@ -365,6 +371,9 @@ body{
     background-repeat:no-repeat;
     background-size:cover;
     margin:0px;
+    overflow-x: hidden;
+    position: initial;
+    width: 100vw;
 }
 
 .header-about{
@@ -381,13 +390,11 @@ body{
 }
 
 .cat-nav{
-    /* text-align: center; */
     font-size:20px;
     margin-left:10px;
     padding-top: 10px;
     padding-bottom: 15px;
     text-align: center;
-    border-bottom: 1px solid black;
 }
 .fa-trash-alt, .fa-edit, .info, .category-list, .fa-bars, .sign-out:hover{
     cursor: pointer;
@@ -398,7 +405,6 @@ body{
 }
 
 .logo{
-    /* float: left; */
     font-family: 'Do Hyeon', sans-serif;
     text-decoration: none;
     margin-top:15px;
@@ -406,14 +412,14 @@ body{
     font-size: 24px;
     font-weight: 800;
     margin-right:20px;
-    color:rgba(0, 0, 0, 0.6);
+    color:black
 }
 
 .action-buttons{
     margin-left: 20px;
 }
 .info{
-    margin-left: 24%;
+    margin-left: 14%;
 }
 .sign-out, .info{
     display:inline-block;
@@ -421,6 +427,9 @@ body{
     margin-top:8px;
     width:2%;
     font-size: 20px;
+}
+.sign-out-hidden{
+    visibility: hidden;
 }
 .info .info-tip, .sign-out .signout-tip{
     visibility: hidden;
@@ -457,11 +466,14 @@ body{
 }
 .navbar{
     width:100%;
-    background-color: #e8e5e573;
+    background-color: #91c6ea;
+    position: fixed;
+    z-index:1;
+    top:0px;
 }
 #side-menu-icon{
     float:left;
-    width:3%;
+    width:6%;
     margin-top:14px;
     margin-left:8px;
 }
@@ -469,7 +481,6 @@ body{
     height:100%;
     width:0;
     position:fixed;
-    z-index:1;
     top:56;
     left:0;
     background-color:#fff;
@@ -485,6 +496,17 @@ body{
 }
 
 .category-list:hover{
+    background-color: rgb(211, 211, 211, 0.5);
+}
+
+.sign-out-hidden{
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    width:100%;
+    padding: 20px 5px;
+}
+.sign-out-hidden:hover{
     background-color: rgb(211, 211, 211, 0.5);
 }
 
@@ -559,6 +581,10 @@ body{
     text-align:center;
 }
 
+.main{
+    margin-top:5%;
+}
+
 @media (max-width: 1150px) {
     .notecards, .notecard-data{
         width:85%;
@@ -567,10 +593,10 @@ body{
     font-family: 'Do Hyeon', sans-serif;
     text-decoration: none;
     margin-top: 0px;
-    width: auto;
+    display:inline-block !important;
+    width: 77%;
     font-size: 24px;
     font-weight: 800;
-    color: rgba(0, 0, 0, 0.6);
     text-align: center;
     display: block;
     padding-top: 10px;
@@ -583,11 +609,46 @@ body{
         width: 77%;
         margin-left: 8%;
     }
+    .jumbotron{
+        margin-top:15%;
+    }
+    .main{
+        margin-top:15%;
+    }
+}
+
+@media (max-width: 800px) {
+    .main{
+        margin-top:20%;
+    }
+}
+
+@media (max-width: 650px) {
+    .main{
+        margin-top:30%;
+    }
+    .logo{
+        width:auto;
+    }
 }
 
 @media only screen and (max-device-width:1200px){
-    .info{
-        margin-left: 12%;
+    .sign-out-hidden{
+        visibility: visible;
+        bottom:auto;
+    }
+    .info,.sign-out{
+        display:none !important;
+    }
+    .notecards, .notecard-container, .notecard-data{
+        width:100%;
+    }
+    .notecard-container{
+        margin-left:1%;
+    }
+    #side-menu{
+        z-index:1;
+        margin-top:12%;
     }
     .centerLogin{
         width:70%;
@@ -613,6 +674,10 @@ body{
     #login-button{
         padding: 13px 18px;
     }
+    .body{
+        position: fixed;
+    }
+    
 }
 
 @media only screen and(max-width:780px){
@@ -630,6 +695,12 @@ body{
     }
     .sign-out{
         display:none;
+    }
+    .body{
+        position: fixed;
+    }
+    .add-form{
+        margin-top:20%;
     }
 }
 
@@ -653,12 +724,15 @@ body{
   .add-btn{
       width: 8.333%;
   }
+  .body{
+    position: fixed;
+}
+    .signup-center{
+        width:50%;
+    }
 }
 
 @media only screen and (max-width: 770px) {
-    .sidenavbar{
-        display:none;
-    }
     .js-search-form{
         width:90%;
         margin-left:13%;
@@ -669,6 +743,9 @@ body{
         margin-left:15%;
         margin-right:5%
     }
+    .sign-out-hidden{
+        visibility: visible;
+    }
     .info, .sign-out{
         display:none !important;
     }
@@ -677,5 +754,8 @@ body{
     }
     .notecards{
         width:85%;
+    }
+    .body{
+        position: fixed;
     }
 }

@@ -8,16 +8,16 @@ function getCategoryData(userSearch, cb) {
 //categories list for nav
 function renderNavCategories(arr) {
     $("#side-menu").empty();
-    //add border bottom or smth later
-    $("#side-menu").append(`<h5 class="cat-nav">Categories</h5>`)
+    $("#side-menu").append(`<h5 class="cat-nav">Categories</h5>`);
     var x = [];
     for (var i = 0; i < arr.length; i++) {
         if (!x.includes(arr[i])) {
             x.push(arr[i]);
-            let navhtml = `<div class="category-list" id=${arr[i]}><i class="fas fa-caret-right"></i><a class ="nav-category" href ="#">${arr[i]}</a><div>`
+            let navhtml = `<div class="category-list" id=${arr[i]}><i class="fas fa-caret-right"></i><a class ="nav-category" href ="#">${arr[i]}</a></div>`
             $("#side-menu").append(navhtml);
         }
     }
+    $("#side-menu").append('<div class="sign-out-hidden">Sign Out</div>')
 }
 
 function displayNoteCard(data) {
@@ -48,9 +48,7 @@ let catHtml;
 function navCategorySearch(data) {
     $("#side-menu").on("click", ".category-list", function (e) {
         e.preventDefault();
-        console.log(data);
         let cat = $(this).attr('id');
-        console.log(cat);
         $('#profile-grid').empty();
         if (data.length) {
             catHtml = '';
@@ -62,7 +60,6 @@ function navCategorySearch(data) {
                 }
             })
         }
-        console.log(catHtml)
         $('#profile-grid').append(catHtml);
     })
 }
@@ -147,7 +144,7 @@ function addCardData() {
     const colors = ["pink", "green", "yellow", "blue"];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     let searchTerm = $('.def-search.js-query').val().toLowerCase();
-    let string = $('#category-input').val().split(' ');
+    let string = $('#category-input').val().trim().split(' ');
     let title = $('#title-input').val();
     let definition = $('#definition-input').val();
     let catUpper = [];
@@ -230,6 +227,9 @@ $('.sign-out').on('click', function (e) {
     logOut();
 })
 
+$(document).on('click','.side-menu-hidden', function(){
+    console.log('test')
+})
 //search using searchbar
 $('.js-search-form').keyup((e) => {
     let searchTerm = $('.def-search.js-query').val().toLowerCase();
@@ -276,6 +276,10 @@ $('#side-menu').on('click', '.category-list', function (e) {
     navCategorySearch(searchTerm)
 })
 
+$('#side-menu').on('click', '.sign-out-hidden', function (e) {
+    console.log('working');
+    logOut();
+})
 
 $('.navbar-brand').click(function (e) {
     e.preventDefault();
@@ -357,8 +361,8 @@ $('.logo').on('click', function() {
 })
 
 function openSlideMenu() {
-    $('#side-menu').css('width', '219px');
-    $('.main').css('margin-left', '219px');
+    $('#side-menu').css('width', '200px');
+    $('.main').css('margin-left', '50px');
 }
 
 function closeSlideMenu() {
@@ -379,5 +383,5 @@ $(document).ready(function () {
     if (hidden === 'true') {
         $('.jumbotron').hide();
     }
-    getAllData(searchTerm)
+    getAllData(searchTerm);
 });
