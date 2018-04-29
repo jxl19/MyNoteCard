@@ -433,16 +433,17 @@ body{
 }
 .info .info-tip, .sign-out .signout-tip{
     visibility: hidden;
-    width: 120px;
+    width: 100px;
     background-color: beige;
     text-align: center;
     font-size:14px;
+    font-family: Raleway;
     padding: 5px 0;
     
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
-    top: 100%;
+    top: 130%;
     left: 50%;
     margin-left: -60px;
 }
@@ -468,7 +469,7 @@ body{
     width:100%;
     background-color: #91c6ea;
     position: fixed;
-    z-index:1;
+    z-index:2;
     top:0px;
 }
 #side-menu-icon{
@@ -478,6 +479,7 @@ body{
     margin-left:8px;
 }
 #side-menu{
+    z-index:1;
     height:100%;
     width:0;
     position:fixed;
@@ -650,6 +652,10 @@ body{
         z-index:1;
         margin-top:12%;
     }
+    #side-menu-icon{
+        margin-top: 2.5%;
+        font-size: 32px;
+    }
     .centerLogin{
         width:70%;
         height: 33vh;
@@ -674,8 +680,8 @@ body{
     #login-button{
         padding: 13px 18px;
     }
-    .body{
-        position: fixed;
+    body{
+        overflow:auto;
     }
     
 }
@@ -739,8 +745,8 @@ body{
         margin-right:5%
     }
     #notecard-add-form, .add-form-input{
-        width:70%;
-        margin-left:15%;
+        width:58%;
+        margin-left:24%;
         margin-right:5%
     }
     .sign-out-hidden{

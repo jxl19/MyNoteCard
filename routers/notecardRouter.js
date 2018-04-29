@@ -8,6 +8,10 @@ router.use(bodyParser.json());
 
 let currentUser;
 //when we get a request to /noetcards.
+router.get('/homepage', (req,res) => {
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    res.status(200).sendFile(__dirname + '/public/notecard.html');
+})
 router.get('/', (req, res) => {
     if (req.session && req.user && req.user._id) {
         currentUser = req.user._id;

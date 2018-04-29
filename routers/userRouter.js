@@ -27,17 +27,12 @@ passport.use(new LocalStrategy({
     process.nextTick(function () {
       User.findOne({ email: email }, function (err, user) {
         if (err) {
-          return done(err);
+          return done({err});
         }
         if (!user) {
           return done(null, false, req.flash('error', 'Invalid username or password'));
         }
-        console.log('password:' + password);
-        console.log('user' + user);
-        console.log('email' + email);
-        console.log('req' + req.body);
         if (user.validatePassword(password)) {
-          console.log('password1:' + password);
           return done(null, user);
         }
         else if (!user.validatePassword(password)) {
@@ -50,7 +45,7 @@ passport.use(new LocalStrategy({
 
 router.post('/login',
   passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/notecard',
     failureRedirect: '/login',
     failureFlash: true
   })

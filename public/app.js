@@ -48,7 +48,7 @@ let catHtml;
 function navCategorySearch(data) {
     $("#side-menu").on("click", ".category-list", function (e) {
         e.preventDefault();
-        let cat = $(this).attr('id');
+        let cat = $(this)[0].innerText;
         $('#profile-grid').empty();
         if (data.length) {
             catHtml = '';
@@ -226,10 +226,6 @@ $('.sign-out').on('click', function (e) {
     e.preventDefault();
     logOut();
 })
-
-$(document).on('click','.side-menu-hidden', function(){
-    console.log('test')
-})
 //search using searchbar
 $('.js-search-form').keyup((e) => {
     let searchTerm = $('.def-search.js-query').val().toLowerCase();
@@ -271,13 +267,11 @@ $('.js-search-form').on('keyup', '.js-query', function (e) {
 });
 
 $('#side-menu').on('click', '.category-list', function (e) {
-    console.log('working');
     let searchTerm = '';
     navCategorySearch(searchTerm)
 })
 
 $('#side-menu').on('click', '.sign-out-hidden', function (e) {
-    console.log('working');
     logOut();
 })
 
@@ -312,7 +306,6 @@ $('#login-button').on('click', function (e) {
 $('.notecard-container').on('click', '#front-card', function () {
     $(this).toggleClass('flipped');
     $(this).find('.term').toggleClass('hide-add');
-    console.log($(this).parent().find('.panel-heading').children().children('.editable_text'));
     $(this).parent().find('.panel-heading').children().children('.editable_text').toggleClass('fa-edit');
 });
 
