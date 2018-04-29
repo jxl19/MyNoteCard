@@ -9,8 +9,8 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const app = express();
-const {PORT, DATABASE_URL} = require('./config.js');
-const {User} = require('./models')
+const { PORT, DATABASE_URL } = require('./config.js');
+const { User } = require('./models')
 const userRouter = require('./routers/userRouter');
 const notecardRouter = require('./routers/notecardRouter');
 // const testRouter = require('./routers/testRouter');
@@ -21,7 +21,7 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
   secret: 'keyboard cat',
@@ -37,6 +37,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(function (req, res, next) {
+  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+});
+
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -47,26 +53,27 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 app.use('/users', userRouter);
-app.use('/notecards', notecardRouter); 
+app.use('/notecards', notecardRouter);
 // app.use('/test', testRouter);
 app.use('/signup', (req, res) => {
   res.status(200).sendFile(__dirname + '/public/signup.html');
 })
-app.get('/notecard',ensureAuthenticated,(req, res) => {
+app.get('/notecard', ensureAuthenticated, (req, res) => {
   res.status(200).sendFile(__dirname + '/public/notecard.html');
 });
 
 
 
+
 app.get('/logout', userController.logout);
 
-app.use('*', (req,res) => {
-  res.status(404).json({message: 'Request not found'});
+app.use('*', (req, res) => {
+  res.status(404).json({ message: 'Request not found' });
 });
 
 let server;
 
-function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+function runServer(databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
       if (err) {
@@ -77,9 +84,9 @@ function runServer(databaseUrl=DATABASE_URL, port=PORT) {
         console.log(databaseUrl);
         resolve();
       })
-      .on('error', err => {
-        reject(err);
-      });
+        .on('error', err => {
+          reject(err);
+        });
     });
   });
 }
@@ -103,4 +110,4 @@ if (require.main === module) {
   runServer().catch(err => console.error(err));
 }
 
-module.exports = {app, runServer, closeServer};
+module.exports = { app, runServer, closeServer };
