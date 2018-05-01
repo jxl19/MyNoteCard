@@ -431,6 +431,11 @@ body{
 .sign-out-hidden{
     visibility: hidden;
 }
+
+.info:hover,.sign-out:hover {
+    opacity:0.6;
+}
+
 .info .info-tip, .sign-out .signout-tip{
     visibility: hidden;
     width: 100px;
@@ -439,7 +444,7 @@ body{
     font-size:14px;
     font-family: Raleway;
     padding: 5px 0;
-    
+    border-radius: 2rem;
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
@@ -746,7 +751,7 @@ body{
     }
     #notecard-add-form, .add-form-input{
         width:58%;
-        margin-left:24%;
+        margin-left:18%;
         margin-right:5%
     }
     .sign-out-hidden{
@@ -757,6 +762,7 @@ body{
     }
     .notecard-container{
         width:100%;
+        margin-left:14%;
     }
     .notecards{
         width:85%;

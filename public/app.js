@@ -309,20 +309,9 @@ $('.notecard-container').on('click', '#front-card', function () {
     $(this).parent().find('.panel-heading').children().children('.editable_text').toggleClass('fa-edit');
 });
 
-let menuClicked = false;
 $('#side-menu-icon').on('click', function () {
-    if (!menuClicked) {
-        menuClicked = true;
-        openSlideMenu();
-    }
-    else {
-        menuClicked = false;
-        closeSlideMenu();
-    }
-})
-
-$('.btn-close').on('click', function () {
-    closeSlideMenu();
+    var toggleWidth = ($("#side-menu").width() == 200) ? "0px" : "200px";
+    $('#side-menu').animate({width: toggleWidth},100);
 })
 
 let formOpened = false;
@@ -352,16 +341,6 @@ $('.register').on('click', function(){
 $('.logo').on('click', function() {
     window.location.replace('/notecard');
 })
-
-function openSlideMenu() {
-    $('#side-menu').css('width', '200px');
-    $('.main').css('margin-left', '50px');
-}
-
-function closeSlideMenu() {
-    $('#side-menu').css('width', '0px');
-    $('.main').css('margin-left', '0px');
-}
 
 $('textarea').each(function () {
     this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
