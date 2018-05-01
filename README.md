@@ -4,7 +4,7 @@ Live link: https://mynotecard.herokuapp.com/
 ## Summary
 MyNoteCard allows users to keep track of new concepts and terms as notecards to use to study later on. It allows users to search by definition of a term/concept using the searchbar or filter out the categories using the navbar on the left.
 
-![mynotecard](https://user-images.githubusercontent.com/17520488/38970176-d3ac5014-4348-11e8-803e-7e8d76ec7ab6.png)
+![notecard-homepage](https://user-images.githubusercontent.com/17520488/39463000-401b3686-4cca-11e8-9f5f-9b63696db0fc.png)
 
 
 ## Technologies
