@@ -87,7 +87,7 @@ function showJumbotron() {
 
 function loginUser(route) {
     let user = {
-        email: $('#login-email').val(),
+        email: $('#login-email').val().toLowerCase(),
         password: $('#login-password').val()
     }
     $.ajax({
