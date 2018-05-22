@@ -667,7 +667,6 @@ body{
     }
     .centerLogin{
         width:70%;
-        height: 33vh;
     }
     label{
         font-size:35px;
@@ -692,7 +691,12 @@ body{
     body{
         overflow:auto;
     }
-    
+    #title-input, #category-input, #definition-input{
+        border: 1px solid gainsboro;
+    }
+    #definition-input{
+        width: 99.5%;
+    }
 }
 
 @media only screen and(max-width:780px){
